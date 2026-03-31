@@ -96,8 +96,7 @@ export default function HomePage() {
                 key={logo.alt}
                 src={logo.src}
                 alt={logo.alt}
-                className="h-8 opacity-80"
-                width={100}
+                className="h-8 w-auto opacity-80"
                 height={32}
               />
             ))}
