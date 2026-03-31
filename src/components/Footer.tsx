@@ -50,6 +50,8 @@ export function Footer() {
               src="https://cdn.prod.website-files.com/6644e5e860f656524d6f243e/664b1cab1ff8110289c4ba8e_tramline-vector-logo.svg"
               alt="Tramline"
               className="h-12 mb-4"
+              width={213}
+              height={48}
             />
             <p className="text-sm text-muted-foreground">
               The Mobile

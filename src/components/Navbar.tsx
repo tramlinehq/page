@@ -35,6 +35,8 @@ export function Navbar() {
             src="https://cdn.prod.website-files.com/6644e5e860f656524d6f243e/664b1cab1ff8110289c4ba8e_tramline-vector-logo.svg"
             alt="Tramline"
             className="h-9"
+            width={160}
+            height={36}
           />
         </Link>
 
@@ -110,6 +112,8 @@ export function Navbar() {
                   src="https://cdn.prod.website-files.com/6644e5e860f656524d6f243e/664b1cab1ff8110289c4ba8e_tramline-vector-logo.svg"
                   alt="Tramline"
                   className="h-6"
+                  width={107}
+                  height={24}
                 />
               </SheetTitle>
             </SheetHeader>

@@ -97,6 +97,8 @@ export default function HomePage() {
                 src={logo.src}
                 alt={logo.alt}
                 className="h-8 opacity-80"
+                width={100}
+                height={32}
               />
             ))}
           </div>
@@ -125,6 +127,8 @@ export default function HomePage() {
             src="https://cdn.prod.website-files.com/6644e5e860f656524d6f243e/6658f88f656bb5fba6c41dd3_Website%202024%20changeset%20tracking.webp"
             alt="Tramline Dashboard"
             className="w-full"
+            width={1400}
+            height={875}
             style={{ transform: "perspective(1200px) rotateX(15deg) rotateY(0deg) rotate(0deg)" }}
           />
         </div>
@@ -157,6 +161,8 @@ export default function HomePage() {
                   src="https://cdn.prod.website-files.com/6644e5e860f656524d6f243e/6650deeb0703b8136bf47bc7_Control%20Release.svg"
                   alt="One Team, One Process"
                   className="w-full mb-6"
+                  width={640}
+                  height={400}
                 />
                 <CardTitle className="mb-3">One Team, One Process</CardTitle>
                 <p className="text-muted-foreground">
@@ -177,6 +183,8 @@ export default function HomePage() {
                   src="https://cdn.prod.website-files.com/6644e5e860f656524d6f243e/6650deeb7b9332de9877acbf_Audit%20Release.svg"
                   alt="Everything In Its Right Place"
                   className="w-full mb-6"
+                  width={640}
+                  height={400}
                 />
                 <CardTitle className="mb-3">
                   Everything In Its Right Place
@@ -228,6 +236,8 @@ export default function HomePage() {
                   src="https://cdn.prod.website-files.com/6644e5e860f656524d6f243e/665ae3a8cf74c9c6f3b909de_Bring%20data%20in.svg"
                   alt="Bring Data In"
                   className="w-full mb-4"
+                  width={640}
+                  height={400}
                 />
                 <CardTitle>Bring Data In</CardTitle>
               </CardHeader>
@@ -250,6 +260,8 @@ export default function HomePage() {
                   src="https://cdn.prod.website-files.com/6644e5e860f656524d6f243e/665ae3a853a788531a18812a_Send%20alert%20out.svg"
                   alt="Send Alerts Out"
                   className="w-full mb-4"
+                  width={640}
+                  height={400}
                 />
                 <CardTitle>Send Alerts Out</CardTitle>
               </CardHeader>
@@ -274,7 +286,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <img src="/icons/engineers-set-free.svg" alt="" className="h-16 mb-2" />
+                <img src="/icons/engineers-set-free.svg" alt="" className="h-16 mb-2" width={64} height={64} />
                 <CardTitle>Engineers Set Free</CardTitle>
               </CardHeader>
               <CardContent>
@@ -294,7 +306,7 @@ export default function HomePage() {
             </Card>
             <Card>
               <CardHeader>
-                <img src="/icons/hotfixes-made-easy.svg" alt="" className="h-16 mb-2" />
+                <img src="/icons/hotfixes-made-easy.svg" alt="" className="h-16 mb-2" width={64} height={64} />
                 <CardTitle>Hotfixes Made Easy</CardTitle>
               </CardHeader>
               <CardContent>
@@ -324,7 +336,7 @@ export default function HomePage() {
             {MINI_FEATURES.map((feature) => (
               <Card key={feature.label}>
                 <CardContent className="pt-6">
-                  <img src={feature.icon} alt="" className="h-7 mb-4" />
+                  <img src={feature.icon} alt="" className="h-7 mb-4" width={28} height={28} />
                   <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-3">
                     {feature.label}
                   </p>
@@ -348,6 +360,8 @@ export default function HomePage() {
               alt=""
               aria-hidden="true"
               className="absolute right-16 top-1/2 -translate-y-1/2 h-[300px] w-[300px] opacity-[0.15] pointer-events-none select-none"
+              width={300}
+              height={300}
             />
             <div className="relative z-10">
             <h2 className="text-white mb-6">Pure open source, no caveats</h2>
