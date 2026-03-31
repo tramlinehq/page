@@ -93,7 +93,7 @@ export function TestimonialCarousel() {
             <button
               key={i}
               onClick={() => api?.scrollTo(i)}
-              className={`w-2 h-2 rounded-full transition-colors ${
+              className={`w-3 h-3 rounded-full transition-colors ${
                 i === current ? "bg-foreground" : "bg-border"
               }`}
               aria-label={`Go to testimonial ${i + 1}`}
