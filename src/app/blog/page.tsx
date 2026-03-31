@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllPosts } from "@/lib/blog";
+import { getAllPosts, formatDate } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Blog - Tramline",
@@ -53,7 +53,7 @@ export default function BlogPage() {
                       </span>
                     )}
                     <span className="text-xs text-muted-foreground">
-                      {post.date}
+                      {formatDate(post.date)}
                     </span>
                     {post.author && (
                       <span className="text-xs text-muted-foreground">

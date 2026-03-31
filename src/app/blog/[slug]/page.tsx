@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { getAllPosts, getPostBySlug, formatDate } from "@/lib/blog";
 import { markdownToHtml } from "@/lib/mdx";
 
 type Props = {
@@ -55,7 +55,7 @@ export default async function BlogPost({ params }: Props) {
                 {post.category}
               </span>
             )}
-            <span className="text-sm text-muted-foreground">{post.date}</span>
+            <span className="text-sm text-muted-foreground">{formatDate(post.date)}</span>
             {post.author && (
               <span className="text-sm text-muted-foreground">
                 · {post.author}

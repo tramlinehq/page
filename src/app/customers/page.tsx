@@ -72,45 +72,6 @@ export default function CustomersPage() {
         </div>
       </section>
 
-      {/* Open Source */}
-      <section className="py-20">
-        <div className="max-w-[900px] mx-auto px-6">
-          <div className="bg-[#1a2e1a] rounded-2xl px-8 md:px-16 py-16 text-white">
-            <h2 className="text-white mb-6">Pure open source, no caveats</h2>
-            <p className="text-gray-300 mb-4 max-w-[700px]">
-              No SSPL, no BSL, no exceptions. Tramline is open source, through
-              and through, under the universally accepted{" "}
-              <a
-                href="https://www.apache.org/licenses/LICENSE-2.0"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline text-white hover:text-gray-200"
-              >
-                Apache 2.0 License
-              </a>
-              . Check out our{" "}
-              <a
-                href="https://github.com/tramlinehq/tramline"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline text-white hover:text-gray-200"
-              >
-                source code
-              </a>
-              ,{" "}
-              <a
-                href="https://github.com/tramlinehq/tramline/issues"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline text-white hover:text-gray-200"
-              >
-                issue queue
-              </a>
-              , or just run the system yourself, no strings attached.
-            </p>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

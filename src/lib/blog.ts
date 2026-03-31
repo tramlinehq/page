@@ -4,6 +4,15 @@ import matter from "gray-matter";
 
 const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
 
+export function formatDate(dateStr: string): string {
+  const date = new Date(dateStr + "T00:00:00");
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
 export type BlogPost = {
   slug: string;
   title: string;
