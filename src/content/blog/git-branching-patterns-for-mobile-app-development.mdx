@@ -1,0 +1,61 @@
+---
+title: "Git branching patterns for mobile app development"
+date: "2022-05-23"
+description: "A comprehensive guide to branching strategies for mobile app teams."
+heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653672822402c3ccadf230a_Richard%20Melick%20Unsplash.jpg"
+author: "Pratul Kalia"
+category: "Insights"
+---
+
+Selecting a branching approach carries significant implications for how your team collaborates, deploys, and debugs issues in production. Unlike web applications, mobile apps can't deploy constantly — app store review processes, user update cycles, and binary distribution all impose constraints that don't exist on the server side. Fast-paced teams typically establish release branches from main for stabilization while allowing ongoing development to continue uninterrupted on the main branch.
+
+## Gitflow
+
+Gitflow has existed for a long time, and there is abundant guidance available on how to implement it. It is increasingly seen as outdated by many teams because it creates merge complexity and administering many persistent branches places cognitive strain on developers. Despite this, its popularity has perpetuated adoption — many teams use Gitflow simply because it's what they learned first.
+
+The standard Gitflow setup consists of a main branch that represents production, a dev branch for active development, and feature branches created from dev that are merged back after code review. Releases are created by merging dev into main with a tag. Hotfixes under Gitflow are unnecessarily complex, with two common approaches typically described in the literature, both of which require careful coordination to avoid introducing regressions.
+
+The primary benefit of Gitflow is that developers can avoid using feature flags entirely, which prevents the accumulation of flag-related technical debt. For teams that are uncomfortable with or unable to adopt feature flags, this is a meaningful advantage.
+
+## Trunk-based development
+
+Trunk-based development actually precedes Gitflow, despite being less widely adopted in the mobile development community. Its core principles are straightforward: there is a single main branch, all developers commit to main including incomplete work protected behind feature flags, main is always release-ready, and code reaches production multiple times daily. Trunk-based development is widely considered a requirement for achieving true Continuous Delivery. The primary challenge is that no major hosting platform natively supports it with built-in tooling.
+
+### Pure Trunk
+
+Pure Trunk is the official form of trunk-based development. It is used at companies like Google and Facebook, where developers commit directly to main with no remote branches. Fast-forward pushes are required, ensuring a linear commit history. Code review happens through staging areas rather than pull requests. Releases are simply tags on main — when the team decides to release, they tag the current state of main and ship it. Hotfixes follow an identical procedure: commit the fix to main and create a new tag. There is no separate hotfix workflow, which dramatically reduces complexity.
+
+### Almost Trunk
+
+Almost Trunk is a simpler variant that works naturally with platforms like GitHub and GitLab. Developers create short-lived branches from main that last no more than 24 to 48 hours. Any incomplete work gets protected behind feature flags so it can be merged safely. Release branches are created from the latest main commit when it's time to ship.
+
+The key difference from Gitflow is that developers never commit directly to release branches. All fixes are committed to main first, then cherry-picked to the release branch. This ensures that main always contains the complete history of all changes. Hotfixes follow an identical process — fix on main, cherry-pick to the release branch, and tag a new release.
+
+## Prerequisites of TBD
+
+### Automated testing
+
+Automated testing is essential because main constantly progresses with new commits from every developer on the team. A robust mix of unit and integration testing must run against every commit to catch regressions early. Without automated testing, a corrupted main branch can go unnoticed for hours or days, blocking the entire team and undermining the whole approach.
+
+### Feature flags
+
+Feature flags come with tradeoffs — they add complexity to the codebase and require discipline to clean up once features are fully launched. But trunk-based development without feature flags is essentially impossible. Developers need the ability to merge incomplete work to main without exposing it to users. Internal build screens that allow non-technical team members to toggle flags are particularly valuable for QA and product teams who need to test work in progress.
+
+### Access to intermediate builds
+
+Easy access to builds from feature branches is important for stakeholder verification. Product managers, designers, and QA engineers need to be able to install and test builds from any branch quickly. This fast feedback loop is what makes short-lived branches viable — if it takes hours to get a testable build, developers will keep branches alive longer, defeating the purpose.
+
+## Epilogue
+
+For small teams of five developers or fewer, Gitflow works reasonably well. You can simplify it further by dropping the dev branch and working directly with main and feature branches. For larger teams, commit to Almost Trunk for scalable release engineering. Even teams with manual testing processes can adopt Almost Trunk successfully — the key is ensuring that release branches provide a stabilization period for manual QA.
+
+A note on React Native and CodePush: CodePush allows over-the-air JavaScript bundle updates, bypassing the app store review process entirely. While this sounds appealing, reliability concerns persist. OTA updates can create version fragmentation, and debugging issues across different bundle versions adds complexity that teams should carefully evaluate before adopting.
+
+## Further reading
+
+- *Patterns for Managing Source Code Branches* by Martin Fowler
+- *Accelerate* by Nicole Forsgren, Jez Humble, and Gene Kim
+
+---
+
+*Acknowledgments: Abhinav Sarkar, Apoorv Khatreja, Arnav Gupta, Kinshuk Sunil, Saket Narayan, Sanchita Agarwal.*

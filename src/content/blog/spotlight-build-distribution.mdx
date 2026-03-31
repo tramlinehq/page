@@ -1,0 +1,40 @@
+---
+title: "Build Distribution"
+date: "2023-06-01"
+description: "How Tramline centralizes build distribution across your release cycle."
+heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653642028aa81a1477e46c8_1388x1080.webp"
+author: "Nivedita Priyadarshini"
+category: "Feature Spotlight"
+---
+
+## One Ring to bring them all
+
+As mobile teams expand, build-sharing methods multiply. Tramline centralizes distribution. Once CI generates binaries, Tramline distributes across designated channels including app stores. Teams define destinations without handling technical details. Platform adapts to evolving integration interfaces, reducing reliance on external tools like Fastlane.
+
+![Build distribution](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e5e7d0079c3997ffd332e_64783336f5cd8d6fe9e99a4b_634e6980-c62f-4fc7-b296-cd98fcb1139c_1736x580.webp)
+
+For future integrations (like Firebase App Distribution), users can add new distribution channels with minimal friction through the dashboard.
+
+## App Store and the Review Process
+
+Tramline manages the entire process post-TestFlight upload: beta testing with external groups, store release preparation with version/build/release notes, review submission, release with or without phased rollout post-approval.
+
+![App Store process](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e5e7db4641e59bf9fd150_6478335b0a830d219862f0ee_54f83ab1-4f72-40af-a4e8-08b1b67b0346_888x1427.webp)
+
+Binary TestFlight uploads remain unsupported due to App Store Connect API limitations but are planned.
+
+## Stage Roll 'em out
+
+Staged rollouts are handled differently across stores. Play Store allows creating templates applied across release cycles. App Store enables pausing and resuming during 7-day phased releases.
+
+![Play Store rollout](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e5e7d39463cfd39a94866_6478338ed174aff550b2d6dd_7c5ca82a-08da-4d73-9457-180c54473af3_1304x1048.webp)
+
+![App Store rollout](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e5e7d0573df244d1aec75_6478339b89623184dbf418fe_bb87105a-930d-4ee0-8b26-3e528a9d3baa_1199x588.webp)
+
+## What else?
+
+Platform maintains a "store quirks" repository documenting store-specific differences.
+
+## Future
+
+Planned improvements: metric-based automatic pausing for App Store, automated Play Store staged rollouts using templates, iOS TestFlight build uploads.

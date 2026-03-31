@@ -1,0 +1,39 @@
+---
+title: "The special case of mobile DevOps"
+date: "2025-01-01"
+description: "Why mobile app releases need different DevOps practices than web and backend."
+heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6772b4f64a519b4f039be8cb_WhatsApp%20Image%202024-12-28%20at%2013.51.25.jpeg"
+author: "Pratul Kalia"
+category: "Insights"
+---
+
+DevOps is a set of ideas and practices that improve collaboration between development and operations. The objective is rapid, quality software delivery — achieved through mindset shifts and better tooling.
+
+## Wins in traditional DevOps
+
+Dev and Ops used to be separate functions with conflicting priorities. Developers wanted to ship fast; operations wanted stability. DevOps practices — automated testing, CI/CD pipelines, infrastructure as code — bridged that gap. Web and backend teams can now deploy daily or even hourly. Monitoring and observability maintain oversight after deployment.
+
+But mobile apps don't get that luxury.
+
+## How is mobile different?
+
+App stores created enormous distribution advantages, but they also introduced constraints that are entirely absent in web development:
+
+- **App store review processes** can take hours to days, adding unpredictable delays to every release.
+- **No rollback capability** if issues are discovered post-release. Once a build is out, it's out.
+- **User-dependent update adoption** means a significant portion of your user base may be running outdated versions at any given time.
+
+## Impact on app teams
+
+These constraints force mobile teams into fundamentally different DevOps approaches:
+
+- **Reduced deployment frequency** — monthly releases instead of multiple times daily.
+- **Extensive staging and testing** before submission, since there's no quick fix once a build is live.
+- **Phased rollouts with monitoring** to catch issues before they reach the entire user base.
+- **Code freezes during release cycles** to avoid destabilizing builds in progress.
+- **Multiple version maintenance** to ensure backward compatibility with older clients still in the wild.
+- **Feature flags and remote kill switches** as escape hatches for problematic features.
+
+## Applying a mobile lens
+
+The core principles of DevOps — automation, fast feedback loops, shared ownership — remain relevant for mobile. But the specific constraints of app distribution necessitate innovative solutions. We can't simply copy-paste web DevOps practices and expect them to work. Instead, we must revisit these systems with a mobile lens, adapting proven ideas to the realities of store reviews, user-controlled updates, and the absence of rollbacks.

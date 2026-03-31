@@ -1,0 +1,40 @@
+---
+title: "2022: here and beyond"
+date: "2023-02-06"
+description: "Reflections on building Tramline in 2022 and our path forward."
+heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653634a954fcf4f02f4e628_Tram%20moving%20fast%20ghibli.png"
+author: "Pratul Kalia"
+category: "Business"
+---
+
+2022 was a long and eventful year. We had conversations with mobile teams ranging from indie developers to large platforms. One key observation emerged from all these conversations: while backend and web teams have developed significant operational maturity over the years, mobile app teams differ significantly in how they approach releases and deployment. The tools and systems available for app-first businesses still have a long way to go.
+
+## The Struggles of Delivery
+
+Architecture patterns in mobile have matured considerably. We have well-understood approaches to state management, networking, and UI rendering. But release engineering patterns remain fundamentally different from what backend and web teams enjoy. Apps are not shipped like backends, and backends are not shipped like web frontends. Continuous delivery to app stores is simply impossible in the way we understand it for server-side applications. There is no rollback capability — once a build is out in the wild, you can't pull it back from users' devices.
+
+This reality forces teams into release branching strategies, yet no community-accepted strategies exist in the way that, say, Gitflow became a standard for web development. Our conversations with teams revealed numerous opportunities to simplify these workflows. Beyond branching, there's additional complexity from on-device UI testing, managing multiple distribution channels, orchestrating phased releases, and navigating app store review processes. Each of these adds layers of coordination that most teams handle through a patchwork of scripts, spreadsheets, and tribal knowledge.
+
+## On Building a New Product
+
+![Tram illustration](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653631a80616565558fc98d_63e0f9ddf6111a7be941669c_a_tram_moving_really_fast_ghibli.png)
+
+### New Market or No Market?
+
+Building in a new space comes with the challenge of having little meaningful data to guide decisions. In the early days, we relied heavily on instinct and experience. We found ourselves constantly asking two questions: is this the wrong answer to a real problem, or is this simply not a problem that people have? Distinguishing between the two is critical when you're creating something in a category that doesn't have established benchmarks or competitors to learn from.
+
+### Solutions vs Products
+
+A recurring theme in our conversations with stakeholders was the assertion that what Tramline builds is "not that hard to do." And in many ways, that's accurate — for internal platform teams with deep context about their own systems, building a release automation tool is straightforward. But extracting a solution into a product that people actually pay for has little to do with the solution itself. The challenge lies in making it work for the incredible diversity of real-world setups. Scaling for that diversity increases complexity exponentially. We learned to focus on the problem rather than the shape of the solution, because the problem is what remains constant even as implementations vary wildly across teams.
+
+## Opening Up
+
+![Treasure chest](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653631a119a2f1641762cef_63e5771315e4c33435ae533a_treasure_chest_being_opening.png)
+
+Tramline will be released as open source software. This decision is rooted in several convictions we hold about the kind of software we're building:
+
+- Infrastructure software requires high reliability and longevity. Users need confidence that the tools they depend on for critical workflows will continue to exist and improve, and open source provides that assurance in a way that proprietary software cannot.
+- Workflow software requires collaborative design. The best release engineering tools will be shaped by the people who use them daily, not designed in isolation by a product team.
+- Open source communities create welcoming spaces for participation. They allow engineers to contribute fixes, suggest improvements, and build integrations that we could never anticipate on our own.
+
+Our next steps include selecting the right license, documenting our systems thoroughly, and establishing community spaces where contributors can collaborate. The SaaS version of Tramline is already in private beta, and we're excited to open things up further as we move into 2023.

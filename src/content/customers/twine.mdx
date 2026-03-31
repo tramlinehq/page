@@ -1,0 +1,89 @@
+---
+name: Twine
+location: India
+teamSize: 1-5 engineers
+headline: Twine uses Tramline to release on Android and iOS together
+description: An open source RSS reader app built using Kotlin, Compose Multiplatform, and Material dynamic theming.
+platforms: Android, iOS, Kotlin Multiplatform
+industry: News
+integrations: GitHub, GitHub Actions, BugSnag, TestFlight, Play Store, App Store
+heroImage: https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/666a885f6db03c80c42b98be_banner.webp
+logo: https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/666a87d5cb075ff65cb9cf4e_460x0w.png
+---
+
+*[Originally written and published on the developer's blog](https://sasikanth.dev/deploying-twine-to-app-store-and-play-store/). Duplicated here with permission.*
+
+A year ago while preparing to launch Twine on the App Store and Google Play, the developer went through the typical process of generating release artifacts, submitting to stores, waiting for reviews, and managing rollouts or hotfixes. As a mobile developer experienced with this workflow, the developer noted dissatisfaction with several aspects:
+
+- It's a manual process involving artifact generation for both platforms, version tracking, store releases, and individual phased rollout management
+- It doesn't scale well for maintaining different app variants like nightly builds and production releases
+- Hotfix processes are cumbersome
+
+After the first release, the developer implemented Tramline, having previously used it for another app called Pinnit and appreciating it enough to implement it immediately for Twine.
+
+## Release Process
+
+The standard workflow involves committing changes to the main branch. Tramline automatically triggers nightly releases to TestFlight and Google Play Internal Testing. Once satisfied, clicking a few buttons triggers GitHub Actions to build versioned artifacts and deploy them to respective stores, with hotfix and rollout management handled through the Tramline dashboard.
+
+Twine uses two release trains: **Nightly** and **Release**.
+
+### Nightly Train
+
+The nightly release train automates changes from the main branch every night, back-merging them into a separate nightly branch.
+
+During this process:
+- Tramline builds artifacts using GitHub Actions
+- Tracks app versioning using semantic versioning
+- Generates automated release notes
+
+![Nightly release train showing skipped releases](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/666a9a6e6bda450951f37c6b_image.png)
+
+Tramline intelligently checks for changes in the trunk since the last release before preparing new ones. In the above screenshot, two releases are skipped because there were no new changes. Most often, the developer allows this train to run automatically, though manual releases are available for immediate store testing of new changes.
+
+### Production Train
+
+The production release train has no automated releases — only manual ones.
+
+The workflow starts by clicking "Prepare New Release" on Tramline, then selecting the release type which determines app versioning for both Android and iOS.
+
+![Prepare New Release option](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/666a9ae4b9805a12810b98a5_image-1.png)
+
+![Release type selection dialog](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/666a9af9e099af5fe71e2787_image-2.png)
+
+Once started, Tramline cuts a new branch in `r/release/yyyy-mm-dd` format and starts the release process. GitHub Actions builds artifacts and uploads them to TestFlight and Internal Testing.
+
+The developer then edits release notes — since it's a multi-platform app, notes can be customized per platform.
+
+![Release notes editing interface](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/666a9b3902231dddd25086c6_image-3.png)
+
+After that, clicking "start deployment" begins the production release. Tramline shows an option to submit for review and track the review status (available for iOS; Google Play API lacks this functionality). Slack integration provides release notifications throughout.
+
+![Review submission and tracking](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/666a9b464717fca7106c5b6a_Screenshot-2024-05-31-090018.png)
+
+Once review completes, the release begins with a phased rollout. The developer matches Google Play rollout percentages with App Store defaults since App Store doesn't support custom phase rollout strategies, using the "Increase Rollout" option accordingly.
+
+![Phased rollout management](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/666a9b4e2fbe2c4c5fa815da_Screenshot-2024-05-31-at-09.40.47.png)
+
+### Hotfix Process
+
+If issues arise during rollout (easily observable through BugSnag integration), the developer pushes fixes to the release branch. Tramline then provides an option to apply those patches to the release.
+
+![Patch application options](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/666a9bc1c1ee96968b2d160b_Screenshot-2024-05-31-at-09.42.43.png)
+
+If patches are applied, the release goes into patch mode and starts to increase the patch version, repeating the full release process with the patches included.
+
+![Patch mode with incremented version](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/666a9bcb6783d0c465c83a62_Screenshot-2024-05-31-at-09.43.00-1.png)
+
+### Release Completion
+
+Once the release is done, it's now locked and displays the reldex score along with release information.
+
+![Locked release with reldex score](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/666a9bd4e5e22961f6fc894c_image-4.png)
+
+It also displays the release health information from BugSnag including adoption rate and stability.
+
+![BugSnag release health metrics](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/666a9bdcc528db228c9bc274_image-5.png)
+
+> "For me, Tramline gets rid of the manual release process of generating artifacts locally and handling the releases in individual stores, and also I don't have to directly interact with the App Store Connect or Google Play APIs. I don't have to drown in the process and just start deploying, that's what I like about Tramline."
+>
+> — Sasikanth, Creator of Twine

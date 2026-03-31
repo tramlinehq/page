@@ -1,0 +1,62 @@
+---
+name: Speak
+location: San Francisco
+teamSize: 5-20 engineers
+headline: Speak scales its weekly app releases with Tramline
+description: AI-powered language learning app that helps you practice real conversations through daily speaking exercises.
+platforms: Android, iOS
+industry: Education
+integrations: GitHub, Bitrise, Firebase App Distribution, Play Store, Crashlytics, Slack
+heroImage: https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6883a504d22d37dc0d8dffd3_speak%20header.png
+logo: https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/68837790866c566220dcf11d_speakappstore.webp
+---
+
+Speak is a language learning application enabling users to build confidence via AI-powered conversational practice. The platform combines speech recognition with real-time feedback, allowing learners to enhance speaking skills in everyday scenarios.
+
+The app serves learners across more than 20 countries and has surpassed 10 million downloads. Its market presence is especially prominent in South Korea and Japan, where Speak has maintained positions among leading education applications. Supported by major global investors, the company has become a significant competitor in language education.
+
+This expansion created fresh operational requirements — including faster, safer, and more scalable app release mechanisms. The team publishes updates weekly, necessitating a release process that is stable and transparent for mobile engineers, QA, product, marketing, and all stakeholders invested in shipped changes.
+
+## Challenges
+
+Previously, Speak relied on Git Flow (both branching methodology and CLI tool) alongside Bitrise build pipelines.
+
+Though Git Flow represents a recognized pattern in software engineering, the CLI had inherent constraints. Releases required local initiation by the release manager utilizing CLI for tasks like release branch creation, merging, and production commit tagging. This process omitted pull requests, providing minimal visibility into release modifications. The main branch remained unprotected to permit these changes — a risky arrangement despite strong team trust.
+
+> "Our release process worked, but only with a lot of hands-on effort. It became clear we needed a more automated, reliable system that didn't rely so heavily on individual diligence."
+>
+> — Sean Kim, Engineering Manager
+
+Introducing new engineers to this manual approach presented challenges. Most team members lacked Git Flow CLI experience, requiring training on commands and local tooling setup.
+
+As the product and organization expanded, the developer-focused release model proved inadequate for broader organizational requirements. QA and product teams depended heavily on engineers for release information and progress updates. Managing and granting Play Console access became time-intensive and error-prone.
+
+Regular release cycles were complicated further by patchfixes and hotfixes. For patches, the release manager needed to remember version increments, close the current release, initiate a new one, and manually restart staged rollout percentages. Hotfixes demanded similar effort. Engineers required locating the correct commit and branch from prior releases, bumping version numbers, generating new builds, closing old releases, and creating new ones with updated binaries. These isolated processes introduced error potential and increased release cycle strain.
+
+> "There were just a lot of small, manual steps involved in each release. It was easy to overlook something, and hard to feel confident without double-checking every part of the process."
+>
+> — Sean Kim, Engineering Manager
+
+The organization required a mature, streamlined approach to mobile releases: a system automating routine tasks, reducing operational overhead, and providing team-wide access to necessary information.
+
+## Solutions
+
+Speak implemented Tramline to modernize its Android release process. Automating release responsibilities immediately allowed engineers to concentrate on product development. Tramline's workflow automation now manages the complete lifecycle: version bumping, release branch creation, backmerging bug fix commits, and tagging final builds. Manual Git Flow commands and local-only processes became unnecessary.
+
+Questions previously demanding engineer involvement now receive instant answers through the Tramline dashboard: What is the current internal build? What is the production rollout status? How does rollout progression correlate with version adoption? This visibility eliminated Play Console access requirements for most team members.
+
+> "With Tramline, releases feel a lot more predictable. We're not juggling scripts or waiting on someone to run the right commands — everything just flows. It's taken a huge amount of overhead off the team and made the whole process more transparent."
+>
+> — Sean Kim, Engineering Manager
+
+Patchfixes are now end-to-end managed: Engineers commit fixes to the release branch, and Tramline creates builds with appropriate information and Play Console updates. Hotfixes follow comparable streamlined workflows. Because Tramline connects to build pipelines, versioning data, and release metadata, hotfixes function as lightweight extensions of previously completed releases, making management significantly less demanding.
+
+Cascading rollouts — a common Android team strategy Speak previously handled manually — are also managed by Tramline. Releases reach 100% only once the next version is ready for production, providing teams control to pause rollouts until the final moment.
+
+## Outcomes
+
+Following Tramline adoption, Speak transformed its release process from a developer-managed task into a transparent, team-wide workflow. Engineers dedicate less time maintaining custom scripts or training others on legacy tools. The release process is automated where beneficial, with thoughtful guardrails for necessary human input.
+
+Simultaneously, Speak's rapid growth and distinctive internal workflows continue testing modern release tooling boundaries. Tramline collaborates closely with the team navigating edge cases, helping expand the platform and better support the broader mobile ecosystem.
+
+Moving to an automated, team-wide release process has recovered valuable engineering time and decreased friction for QA, product, and other teams. Reliable automation and improved visibility position Speak to consistently ship updates to users, week after week.

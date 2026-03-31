@@ -1,0 +1,54 @@
+---
+title: "From feature-driven delivery to timeline-driven delivery"
+date: "2023-02-01"
+description: "Why increasing release frequency transforms your team's delivery culture."
+heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/665363da05a08d3fb7bbd9c4_featuredrivendelivery.webp"
+author: "Pratul Kalia"
+category: "Insights"
+---
+
+Trunk Based Development is a source-control branching model where developers collaborate on a single branch called trunk. To understand why this matters, consider an analogy from transit systems.
+
+## When is the next train?
+
+Imagine three scenarios:
+
+- **Daily trains:** If there's only one train per day and you miss it, you wait until tomorrow. Every missed train is a significant setback, and you plan your entire day around the schedule.
+- **Six daily trains:** If there are six trains a day and you miss one, you can catch another within a few hours. Missing a train is inconvenient but not catastrophic.
+- **A hundred daily trains:** If there are a hundred trains a day and you miss one, you catch another within minutes. At this frequency, you stop caring about schedules entirely and simply focus on your destination.
+
+In the third scenario, people stop worrying about timing and focus entirely on where they're going. This is exactly how developers should be able to work — focused on building, not on coordinating releases.
+
+## Feature-driven delivery a.k.a. Unpredictability
+
+Many teams determine their release frequency based on completing feature lists. A release goes out when the planned features are done, which leads to unpredictable deployments with large gaps between them. Engineers work on different branches, each racing to meet deadlines so their features make it into the next release.
+
+This approach creates several serious problems:
+
+- **Merge hell from long-running feature branches.** When branches live for weeks, they diverge significantly from the main codebase, making merges painful and error-prone.
+- **Massive changesets that are impossible to review properly.** A pull request with thousands of lines of changes doesn't get a meaningful code review — it gets a rubber stamp.
+- **Favoring individual high performers over team collaboration.** When the release depends on specific features being complete, the focus shifts to individual output rather than collective progress.
+- **Emotional strain and burnout.** The pressure of release deadlines combined with the chaos of last-minute merges creates stress that compounds over time.
+
+## Timeline-driven Delivery a.k.a. Daily Success
+
+The alternative is to increase release frequency dramatically — to daily or even hourly:
+
+- Production releases happen as frequently as possible, on a fixed cadence rather than waiting for features.
+- Merged changes remain small, making code reviews manageable and meaningful.
+- Merge conflicts decrease significantly and resolve painlessly when they do occur.
+- Daily codebase changes keep teams aware of what's happening across the project.
+
+To make this work in practice, teams adopt several implementation patterns:
+
+- **Short-lived feature branches** that last only one to two days before being merged back to trunk. This keeps changes small and reduces divergence.
+- **CI automatically validates trunk commits**, ensuring that every merge to the main branch passes the full test suite.
+- **CD follows from validated commits**, so that any commit that passes CI is a candidate for production.
+- **Code review becomes a team priority**, not an afterthought. Small changes are easier to review, so reviews happen faster and with more care.
+- **WIP code sits behind feature flags** — essentially remote controls for toggling functionality on and off. Incomplete features can be merged to trunk safely because they're invisible to users until the flag is turned on.
+
+![Timeline-driven delivery illustration](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e6a0221d80cc404fb14e2_63da58e42c8bfc908f29b8aa_Obvious_PratulBlog_Illustration2.f1612274897_f4be0449f70b6271ec6f95918f1fe0ee.webp)
+
+## Epilogue
+
+The combination of these practices ensures that the codebase remains deployable on demand at all times. Bug fixes can be deployed immediately without waiting for the next scheduled release. Teams eliminate the overhead of release coordination — no more spreadsheets tracking which features are "in" or "out" of a release, no more last-minute scrambles to merge branches. Developers can refocus their energy on what actually matters: building features and eliminating bugs.

@@ -1,0 +1,38 @@
+---
+title: "Applelink: Practical API Recipes for App Store Connect Workflows"
+date: "2023-04-18"
+description: "How we built a self-contained service to wrap App Store Connect API workflows."
+heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653646bfc14700435a905e0_Centered%20Image.png"
+author: "Akshay Gupta"
+category: "Engineering"
+---
+
+Tramline is a Rails monolith for release coordination. It integrates with GitHub, GitHub Actions, Bitrise, Slack, and app stores. All integrations maintain a strict domain-agnostic API layer.
+
+![Integration architecture](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e68b4f3ed49c2317c2e8c_643e7cc0f6b095682eb16391_integrations.png)
+
+## App Store Connect & Fastlane
+
+The App Store Connect API manages TestFlight and App Store releases. The Ruby library Spaceship implements the API and underpins Fastlane. Benefits: battle-tested recipes, direct Fastlane integration. Challenge: Spaceship is part of the larger Fastlane gem with unnecessary dependencies incompatible with Rails 7.
+
+## The Applelink Solution
+
+Applelink is a self-contained, rack-based service built with Hanami::API that wraps Spaceship and exposes common recipes via stateless RESTful endpoints. Currently 13 API endpoints.
+
+A complex recipe example (release/prepare): ensures App Store version availability, updates release metadata, enables phased releases.
+
+A simple example (release/live): returns current status of the latest live release.
+
+## Efficiency Improvements
+
+Spaceship sometimes makes inefficient API call combinations. Applelink optimizes by selecting the most efficient path using proper API relationships.
+
+![Applelink architecture](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e68b4a7563ccde04f3a4f_643e7cf1f6b095bf8eb165cd_applelink.png)
+
+## Current Status
+
+Running successfully for months. Future iterations may replace Spaceship entirely. As a standalone service, endpoints are usable in CI actions or Slack bots. Open source under Apache 2.0.
+
+## Prior Art
+
+Cider by Aaron Sky (Go), Store Quirks.

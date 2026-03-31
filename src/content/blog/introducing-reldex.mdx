@@ -1,0 +1,87 @@
+---
+title: "Introducing Reldex: Measure release process effectiveness"
+date: "2024-06-01"
+description: "A human-friendly scoring system to measure how effective your app release process is."
+heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/665bef4287417ed298b8602e_7be08e63-13b8-49fc-9326-3faf1cb1b928_2048x2048.jpg"
+author: "Akshay Gupta, Nivedita Priyadarshini"
+category: "Community"
+---
+
+Reldex is a human-friendly scoring and grading system for mobile app teams to measure the effectiveness of their release process. It looks at important signals, weighs them, and produces a single grade that can be used for retrospectives or continuous improvement.
+
+## DORA Metrics Foundation
+
+DORA has been the industry standard for measuring software delivery performance. Its four key metrics are:
+
+- **Lead time for changes** — how long it takes for a commit to reach production.
+- **Deployment frequency** — how often code is deployed to production.
+- **Change fail rate** — the percentage of deployments that cause failures.
+- **Time to restore service** — how long it takes to recover from a failure.
+
+## Mobile-Specific Adaptations
+
+Not all DORA metrics fit the mobile world. Continuous deployment is tricky or outright impossible, and changes are guarded by proprietary store review systems. Reldex proposes variants tailored to mobile:
+
+- **Overall time for a release** — days from start to 100% rollout.
+- **Time to stabilize** before starting the rollout.
+- **Time to complete** a full phased rollout.
+- **Number of hotfixes** against the release.
+- **Delay between last rollout and next hotfix**.
+
+## Scoring Configuration
+
+Each metric is assigned an acceptable range and a weight. Here's an example configuration for a mature team shipping weekly:
+
+| Metric | Acceptable Range | Weight |
+|---|---|---|
+| Overall time | 10-12 days | 20% |
+| Time to stabilize | 2-3 days | 20% |
+| Rollout duration | 7 days | 10% |
+| Hotfixes | 0 | 40% |
+| Hotfix delay | 6-12 hours | 10% |
+
+## Individual Metric Scoring
+
+Each metric is scored simply:
+
+- **Better than the acceptable range** = 1
+- **Within the acceptable range** = 0.5
+- **Worse than the acceptable range** = 0
+
+## Final Grade
+
+The final score is calculated as:
+
+`reldex = sum(metric_score * metric_weight)`
+
+Grades are assigned as follows:
+
+- **Excellent**: greater than 0.9
+- **Acceptable**: 0.75 to 0.9
+- **Mediocre**: less than 0.75
+
+![How Reldex works](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/665fd04fe09953fb5f3df78a_reldex-flow%403x.png)
+
+## The Name
+
+Reldex stands for Release Index. The resemblance to Apdex is intentional — the grading math is inspired by Apdex's approach. But where Apdex scores user satisfaction, Reldex scores the app delivery process itself. It is not a measure of feature quality or user experience.
+
+## Meaningful for Teams
+
+Teams set their own acceptable criteria, so Reldex represents their truth. Different teams will set very different ranges depending on their context. A fast-moving startup shipping weekly will have tight ranges; a compliance-heavy enterprise may have much wider ones. The key is that Reldex forces an objective assessment of the release process without relying on the subjective opinions of the release pilot.
+
+## Some Kind of DevOps Metric
+
+> "A goal without a method is cruel." — W. Edwards Deming
+
+A simple grade flags gradual degradation before it becomes a crisis. Think of it as a check engine light for your releases. Like DORA metrics, Reldex is not meant for stack-ranking teams against each other — it's a tool for teams to measure themselves.
+
+## Tramline is Positioned-Perfect
+
+Tramline is release-aware, unlike most CI/CD tools that treat release data as metadata. This means Reldex can be computed directly from the data Tramline already captures. We've recently added two new indicators to make this even more useful.
+
+![Reldex example](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/665e6e82bcfb7b6c0288c01b_Screenshot%202024-06-02%20at%2008-13-42%20Groww%20Tramline.png)
+
+## A Standard Approach
+
+Reldex works for everyone. It's a general-purpose system that can be extended with your own metrics. We prefer foundational metrics that don't depend on complex paid tools. We invite the community to adopt, adapt, and contribute to this approach.
