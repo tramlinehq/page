@@ -48,7 +48,7 @@ export default async function BlogPost({ params }: Props) {
 
       {/* Article content — narrower */}
       <section className={`${post.heroImage ? "pt-10" : "pt-16"} pb-20`}>
-        <div className="max-w-[680px] mx-auto px-6">
+        <div className="max-w-[780px] mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
             {post.category && (
               <span className="text-xs text-muted-foreground border rounded-full px-3 py-1">

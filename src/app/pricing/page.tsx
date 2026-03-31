@@ -69,37 +69,60 @@ const PLANS = [
 
 const FEATURE_ROWS = [
   {
+    category: "Core",
+    features: [
+      { name: "Number of apps", hobby: "2", team: "Unlimited", enterprise: "Unlimited" },
+      { name: "Number of releases", hobby: "15 per app, per year", team: "Unlimited", enterprise: "Unlimited" },
+      { name: "Setup & onboarding", hobby: "Self", team: "Assisted", enterprise: "White-glove" },
+      { name: "Support", hobby: "Discord", team: "Slack Connect", enterprise: "Slack Connect, Phone" },
+      { name: "SLA commitment", hobby: "\u2014", team: "72 hour SLA", enterprise: "24 hour SLA" },
+      { name: "Release consulting", hobby: "\u2014", team: "Paid", enterprise: "2 hours per week included" },
+    ],
+  },
+  {
     category: "Users & Teams",
     features: [
-      { name: "Role-based access", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
-      { name: "SAML/SSO", hobby: "\u2014", team: "$50/mo add-on", enterprise: "Included" },
+      { name: "Roles", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
+      { name: "SAML / SSO", hobby: "", team: "Paid add-on\n$50 per month", enterprise: "\u2713" },
+      { name: "Release pilot management", hobby: "", team: "", enterprise: "\u2713" },
+      { name: "Approvals", hobby: "", team: "", enterprise: "\u2713" },
     ],
   },
   {
     category: "Release Management",
     features: [
-      { name: "Release pilot management", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
-      { name: "Approvals & scheduled releases", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
       { name: "Branching strategies", hobby: "Almost trunk", team: "Almost trunk", enterprise: "Any" },
-      { name: "Cross-platform releases", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
-      { name: "Build queue & backmerges", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
-      { name: "Automatic rollouts", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
+      { name: "Scheduled releases", hobby: "", team: "\u2713", enterprise: "\u2713" },
+      { name: "Synchronized cross-platform releases", hobby: "", team: "\u2713", enterprise: "\u2713" },
+      { name: "Build queue", hobby: "", team: "", enterprise: "\u2713" },
+      { name: "Continuous backmerges", hobby: "", team: "", enterprise: "\u2713" },
+      { name: "App variants", hobby: "", team: "", enterprise: "\u2713" },
+      { name: "Automatic rollouts", hobby: "", team: "", enterprise: "\u2713" },
     ],
   },
   {
     category: "Monitoring & Observability",
     features: [
-      { name: "Notifications", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
-      { name: "Release health monitoring", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
-      { name: "Automatic rollout halts", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
-      { name: "Reldex & release metrics", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
+      { name: "Notifications system", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
+      { name: "Per-channel notifications", hobby: "", team: "", enterprise: "\u2713" },
+      { name: "Release health monitoring", hobby: "", team: "", enterprise: "\u2713" },
+      { name: "Automatic triggers to halt rollout", hobby: "", team: "", enterprise: "\u2713" },
+    ],
+  },
+  {
+    category: "Mobile DevOps",
+    features: [
+      { name: "Reldex", hobby: "", team: "\u2713", enterprise: "\u2713" },
+      { name: "Release metrics charts", hobby: "", team: "\u2713", enterprise: "\u2713" },
+      { name: "Team performance analysis", hobby: "", team: "", enterprise: "\u2713" },
     ],
   },
   {
     category: "Extensibility",
     features: [
-      { name: "Outgoing webhooks", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
-      { name: "API access", hobby: "\u2713", team: "\u2713", enterprise: "\u2713" },
+      { name: "Outgoing webhooks", hobby: "", team: "", enterprise: "\u2713" },
+      { name: "API access", hobby: "", team: "", enterprise: "\u2713" },
+      { name: "Custom build-level metadata", hobby: "", team: "", enterprise: "\u2713" },
     ],
   },
 ];

@@ -97,12 +97,6 @@ const CATEGORIES: Category[] = [
         description:
           "Connect Bitrise to Tramline for mobile-first CI/CD workflows.",
       },
-      {
-        name: "Codemagic",
-        logo: "https://cdn.prod.website-files.com/6644e5e860f656524d6f243e/693dac55486c6c009f91692b_codemagic-blue.png",
-        description: "Codemagic integration for Flutter and mobile builds.",
-        comingSoon: true,
-      },
     ],
   },
   {
@@ -184,7 +178,7 @@ export default function IntegrationsPage() {
           {CATEGORIES.map((category) => (
             <div key={category.title} className="mb-16">
               <h2 className="text-2xl font-normal mb-6">{category.title}</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {category.integrations.map((integration) => (
                   <Card
                     key={integration.name}

@@ -139,6 +139,15 @@ h4 {
   }
 }
 
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  text-align: left;
+}
+
 .prose blockquote {
   font-style: normal;
   font-weight: 400;

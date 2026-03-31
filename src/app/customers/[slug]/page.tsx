@@ -103,7 +103,7 @@ export default async function CustomerCaseStudy({ params }: Props) {
             <hr className="border-border mb-8" />
 
             <div
-              className="prose prose-lg max-w-none"
+              className="prose prose-lg max-w-none text-justify"
               dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
           </div>
