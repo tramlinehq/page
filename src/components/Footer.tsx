@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 const COMMUNITY_LINKS = [
   {
     label: "Source Code",
-    href: "https://github.com/tramlinehq/tramline",
+    href: "https://github.com/tramlinehq",
     external: true,
   },
   {
@@ -17,17 +17,17 @@ const COMMUNITY_LINKS = [
 const TOOLS_LINKS = [
   {
     label: "Store Quirks",
-    href: "https://storequirks.tramline.app",
+    href: "https://github.com/tramlinehq/store-quirks",
     external: true,
   },
   {
     label: "Applelink",
-    href: "https://github.com/nickvdyck/applelink",
+    href: "https://github.com/tramlinehq/applelink",
     external: true,
   },
   {
     label: "Macige",
-    href: "https://github.com/nickvdyck/macige",
+    href: "https://macige.tramline.app/",
     external: true,
   },
 ];
