@@ -1,54 +1,77 @@
 ---
 title: "From feature-driven delivery to timeline-driven delivery"
 date: "2023-02-01"
-description: "Why increasing release frequency transforms your team's delivery culture."
+description: "How to not feel burdened by a release date, and go back on focusing on what is important — building features and eliminating bugs."
 heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/665363da05a08d3fb7bbd9c4_featuredrivendelivery.webp"
 author: "Pratul Kalia"
 category: "Insights"
 ---
 
-Trunk Based Development is a source-control branching model where developers collaborate on a single branch called trunk. To understand why this matters, consider an analogy from transit systems.
+The [Trunk Based Development website](https://trunkbaseddevelopment.com/) says “\[…\] a source-control branching model, where developers collaborate on code in a single branch called “trunk” and resist any pressure to create other long-lived development branches by employing documented techniques. They therefore avoid merge hell, do not break the build, and live happily ever after.”
 
-## When is the next train?
+That sounds great… but what exactly is it, and why should you care about it? For a bit, let’s forget about code and branches and use an analogy that is easier to understand — the transit system of a city.
 
-Imagine three scenarios:
+## When is the next train?  
 
-- **Daily trains:** If there's only one train per day and you miss it, you wait until tomorrow. Every missed train is a significant setback, and you plan your entire day around the schedule.
-- **Six daily trains:** If there are six trains a day and you miss one, you can catch another within a few hours. Missing a train is inconvenient but not catastrophic.
-- **A hundred daily trains:** If there are a hundred trains a day and you miss one, you catch another within minutes. At this frequency, you stop caring about schedules entirely and simply focus on your destination.
+Imagine a city with lots of different train stations. The network can run using lots of trains at different frequencies. Let’s consider three different scenarios:
 
-In the third scenario, people stop worrying about timing and focus entirely on where they're going. This is exactly how developers should be able to work — focused on building, not on coordinating releases.
+-   A train passes through each station once every day
+-   Trains pass through each station six times every day
+-   Trains pass through each station a hundred times every day
+
+What will be the effect of the three different possibilities on the people living in the city?  
+
+**In the first case**, if a person misses the train there is no other way to reach the destination until the next train, which unfortunately will arrive on the next day.  
+  
+**In the second case**, if a person misses one train they can catch another train in a few hours and won’t have to wait for an entire day to reach their destination. This means people don’t care about the schedule of the trains as much as they do in the first case. It is possible to reach the destination in a few hours — late, but possible.  
+  
+**In the last case**, if a person misses a train they can easily catch another train in a few minutes. It’s easy to imagine that people will stop caring about the train schedule altogether and focus on what they want to do at the destination. The transit system becomes an artifact that recedes in the background, letting people concentrate on what they actually want to do — living their lives and getting things done!  
+
+Now let’s go back to building and delivering software.  
 
 ## Feature-driven delivery a.k.a. Unpredictability
 
-Many teams determine their release frequency based on completing feature lists. A release goes out when the planned features are done, which leads to unpredictable deployments with large gaps between them. Engineers work on different branches, each racing to meet deadlines so their features make it into the next release.
+In a lot of teams, the frequency of releases is determined by “when this Important List of Features is completed”. That leads to unpredictable releases with large delays between deployments. Although such teams try to “fix” a release date and try to cut scope so that the Very Important Date can be met, it rarely works.
 
-This approach creates several serious problems:
+Engineers working on different feature branches rush to get their tasks done before The Date. Merging all of those feature branches becomes a painful ritual as people discover all sorts of changes that have happened in the repository over the past few weeks that they were working on their own branch. Merge meetings are scheduled and a War Room is created to tackle issues that stand in the way of meeting The Date. Inevitably, The Date starts to move. Seven “medium priority” bugs that customers have been complaining about need to be fixed. The CEO’s personal favorite feature request has to be part of this release even though the team heard of it a week ago.
 
-- **Merge hell from long-running feature branches.** When branches live for weeks, they diverge significantly from the main codebase, making merges painful and error-prone.
-- **Massive changesets that are impossible to review properly.** A pull request with thousands of lines of changes doesn't get a meaningful code review — it gets a rubber stamp.
-- **Favoring individual high performers over team collaboration.** When the release depends on specific features being complete, the focus shifts to individual output rather than collective progress.
-- **Emotional strain and burnout.** The pressure of release deadlines combined with the chaos of last-minute merges creates stress that compounds over time.
+Every little thing is important because who knows when the next release will go out? The entire team — nay, the organization — rallies around The Date even though it has changed three times and the original date has been forgotten.
+
+There are some themes that emerge in this familiar scenario:
+
+-   **Merge hell** as discussed above, since multiple long-running feature branches become part of the primary codebase very close to The Date.  
+    
+-   **Massive changesets** to review, or what happens in reality, no code review at all. Reviewing a three-thousand line diff that has been worked on for two weeks is an exercise in frustration.  
+    
+-   **Favoring the Rockstar Programmer** over the team, since it is considered acceptable and natural that a great engineer will disappear for a few days or weeks, and come back with all the work done in a branch far, far away from the rest of the codebase. Merging is the team’s collective problem, unfortunately.  
+    
+-   **Emotional turmoil** and a high probability of burnout for everyone in the team especially as The Date inches closer.
+
+So what is the solution to this problem? We need to increase the frequency of the trains, of course. Hundreds of them every day!  
 
 ## Timeline-driven Delivery a.k.a. Daily Success
 
-The alternative is to increase release frequency dramatically — to daily or even hourly:
+For software engineering, that implies that…
 
-- Production releases happen as frequently as possible, on a fixed cadence rather than waiting for features.
-- Merged changes remain small, making code reviews manageable and meaningful.
-- Merge conflicts decrease significantly and resolve painlessly when they do occur.
-- Daily codebase changes keep teams aware of what's happening across the project.
+-   We increase the frequency of production releases to as frequent as possible — daily, or even hourly!
+-   We drastically reduce the size of changes that are merged into the trunk. As each merge request becomes small, reviewing it becomes far easier.
+-   Since each merge integrates only a small number of changes, the possibility of conflicts also rapidly goes down. When conflicts do happen, resolving them is fast and painless.
+-   changes arrive into the codebase on a daily basis, which means the team is aware of the state of work that is in progress. Any impact from the changes being done is felt very early in the process, giving the team ample time to reach a resolution.
 
-To make this work in practice, teams adopt several implementation patterns:
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e6a0221d80cc404fb14e2_63da58e42c8bfc908f29b8aa_Obvious_PratulBlog_Illustration2.f1612274897_f4be0449f70b6271ec6f95918f1fe0ee.webp)
 
-- **Short-lived feature branches** that last only one to two days before being merged back to trunk. This keeps changes small and reduces divergence.
-- **CI automatically validates trunk commits**, ensuring that every merge to the main branch passes the full test suite.
-- **CD follows from validated commits**, so that any commit that passes CI is a candidate for production.
-- **Code review becomes a team priority**, not an afterthought. Small changes are easier to review, so reviews happen faster and with more care.
-- **WIP code sits behind feature flags** — essentially remote controls for toggling functionality on and off. Incomplete features can be merged to trunk safely because they're invisible to users until the flag is turned on.
+All of this sounds great in theory and it makes sense. How about in practice?
 
-![Timeline-driven delivery illustration](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e6a0221d80cc404fb14e2_63da58e42c8bfc908f29b8aa_Obvious_PratulBlog_Illustration2.f1612274897_f4be0449f70b6271ec6f95918f1fe0ee.webp)
+-   TBD promotes **short-lived feature branches** and frequent merges with the trunk. A branch usually has only one developer, it doesn’t last more than a day or two before it gets merged into the trunk.
+-   This automatically pushes teams towards **Continuous Integration**. Every commit that lands on the trunk goes through the CI pipeline, confirming that it is indeed ready for integration.
+-   Once continuous integration is in place, it is natural to follow it up with **Continuous Delivery**. Since all commits that land on trunk have been marked “stable” by the CI pipeline, they can be deployed immediately.
+-   Since an approved code review means the code will be available on trunk immediately, **teams rally together to review code** as fast and as many times as possible.
+-   Not everything can be done within a day, and features can take a long time to build. In those cases, **work-in-progress code is “hidden” behind a feature flag**. Flags ensure that incomplete features can be reviewed and still land on the trunk.
+-   Flags can also **act as a remote control** for making features available at a later time. Features can be fully developed and be part of the codebase, and then be remotely toggled on (or off). Once a feature has been “enabled”, the alternative code path and flags can be deleted from the codebase.  
+    
 
 ## Epilogue
 
-The combination of these practices ensures that the codebase remains deployable on demand at all times. Bug fixes can be deployed immediately without waiting for the next scheduled release. Teams eliminate the overhead of release coordination — no more spreadsheets tracking which features are "in" or "out" of a release, no more last-minute scrambles to merge branches. Developers can refocus their energy on what actually matters: building features and eliminating bugs.
+All of this comes together to ensure the codebase is releasable on demand. Bug fixes are deployed as soon as the fix is available on the trunk. Teams stop coordinating releases to figure out which commits are “safe” to release.
+
+Developers go back to focusing on what is important — building features and eliminating bugs — rather than being burdened with a release date.

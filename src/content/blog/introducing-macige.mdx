@@ -1,39 +1,45 @@
 ---
 title: "Introducing Macige: CI workflow generator for mobile app development"
 date: "2023-03-07"
-description: "An open source generator for mobile CI workflows across platforms."
+description: "Writing CI server build workflows for mobile apps is cumbersome and time consuming. Macige is an open source CI workflow generator, with a set of popular customizations used in app development."
 heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/665365a4556b97eb9e03fdbf_DALL%C2%B7E%20Mar%207%20Screenshot.png"
 author: "Akshay Gupta"
 category: "Community"
 ---
 
-Writing CI server build workflows for mobile apps is cumbersome and time consuming. Every CI system has its own configuration format, its own way of defining jobs, storing files, and caching artifacts. Mobile apps in particular require complex toolchain configurations, especially when it comes to signed builds. If you're working with cross-platform frameworks like Flutter or React Native, the difficulties compound even further. That's why we built Macige — an open source generator that offers popular customizations for mobile app development CI workflows.
+When setting up Tramline to run your mobile releases, one of the first things that you need are workflows in your CI server that can create the builds you use in the release cycle. Writing these workflows can be annoying since each CI system has different ways of configuring jobs, storing files, caching, etc.
 
-## Problem
+For mobile apps, setting up the official toolchain involves a lot of moving parts especially when creating signed builds that can be uploaded to the App Store or Play Store. If you're using cross-platform frameworks like Flutter or React Native, the setup can be even more time consuming.
 
-Different CI systems use varying configuration methods for jobs, file storage, and caching. Mobile apps require complex toolchain configurations, especially for signed builds. When you add cross-platform frameworks like Flutter and React Native into the mix, the difficulties multiply. Setting up a proper CI pipeline from scratch for a mobile app can eat up days of developer time, and maintaining it across different platforms and CI providers is a constant source of friction.
+So a few months ago, we started putting something together to improve the status quo. We're calling it [Macige](https://macige.tramline.app), which is an acronym for “mobile app CI workflow generator” because why not? 
 
-## Solution
+Macige is a set of CI workflow templates which can be customized using various options. You don’t need to sign in anywhere or make a new account: simply generate a workflow with your preferences, and copy paste it into your project!
 
-Macige stands for Mobile App CI workflow GEnerator. The idea is simple: you shouldn't need to create an account or sign up for anything just to get a working CI configuration for your mobile app. With Macige, you can generate workflows with your preferred settings and simply copy them into your projects. It's designed to get you up and running as quickly as possible, without the overhead of yet another service to manage.
+Here’s what Macige already has:
 
-## Current Features
+-   GitHub Actions workflows for native Android, Flutter, and React Native apps
+-   Support for creating debug builds and signed release builds, including instructions on how to store signing secrets safely
+-   Support for caching build files to reduce app build time
+-   Support for getting app versioning information from CI arguments
 
-Macige currently supports the following:
+## What next? 
 
-- GitHub Actions workflows for native Android, Flutter, and React Native projects
-- Both debug and signed release builds, with guidance on secure secret storage
-- Build file caching to accelerate compilation times across runs
-- CI argument-based app versioning, so you can control version numbers directly from your workflow triggers
+Here’s what we're planning to add in the near future:
 
-These features cover the most common needs for mobile app CI pipelines, and they're designed to work out of the box with minimal tweaking.
+-   iOS workflows for GitHub Actions
+-   Support for [GitLab CI](https://docs.gitlab.com/ee/ci/)
+-   Support for [Bitrise](http://bitrise.io)
+-   Support for [Codemagic](http://codemagic.io)
+-   Write files into your code repo or CI, instead of copying files manually
 
-## Future
+Macige is open source software under [the MIT license](https://en.wikipedia.org/wiki/MIT_License), and we'd love to hear your suggestions. Have a look at our [issue queue on GitHub](https://github.com/tramlinehq/macige/issues), or make a new one if you have something else in mind. Or come join the party and send us a pull request!
 
-We have plans to expand Macige significantly. iOS workflow support is on the roadmap, along with support for additional CI providers like GitLab CI, Bitrise, and Codemagic. We're also exploring automated file writing for repositories, so that Macige can directly commit workflow files into your project rather than requiring you to copy and paste them.
+## A note on the internals
 
-## Technical
+Macige is built using [Yew](https://yew.rs/), a Rust-based web framework. It follows a similar architecture to React/Elm, but you can avoid writing JavaScript or adjacent languages.
 
-Macige is built with Yew, a Rust-based web framework that follows React and Elm-style patterns for building interactive web applications. Template handling is done with askama, and the entire application uses Rust compiled to WebAssembly for DOM interaction. This means the generator runs entirely in the browser with no server-side processing required.
+One of the project's future goals is to guide users through creating CI workflows — either through a CLI or a web service — rather than simply being a textual reference. The handling of workflow templates (via [askama](https://djc.github.io/askama/)) should be easily portable to other settings.
 
-Macige is open source under the MIT License. We welcome community contributions and would love to see pull requests, bug reports, and feature requests on GitHub. If you've been frustrated by the state of mobile CI configuration, give Macige a try and help us make it better for everyone.
+This is one of the benefits of writing in Rust + [Wasm](https://webassembly.org/) — you can interact with the DOM, write powerful server-side-like templates, and reference client-side JavaScript all in one.
+
+‍

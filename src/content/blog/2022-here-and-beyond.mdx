@@ -1,40 +1,76 @@
 ---
 title: "2022: here and beyond"
 date: "2023-02-06"
-description: "Reflections on building Tramline in 2022 and our path forward."
+description: "2022 was a long and eventful year for Tramline, and as we step into the new year, we wanted to do a quick recap and talk about where we’re headed."
 heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653634a954fcf4f02f4e628_Tram%20moving%20fast%20ghibli.png"
 author: "Pratul Kalia"
 category: "Business"
 ---
 
-2022 was a long and eventful year. We had conversations with mobile teams ranging from indie developers to large platforms. One key observation emerged from all these conversations: while backend and web teams have developed significant operational maturity over the years, mobile app teams differ significantly in how they approach releases and deployment. The tools and systems available for app-first businesses still have a long way to go.
+In the early months, we spent a lot of time talking to mobile teams of all shapes and sizes — from award-winning indie developers, going all the way to large mobile platform teams generating millions of dollars of revenue every day.
 
-## The Struggles of Delivery
+A sign of a maturing platform is the differences between how teams operate, which is evident in the mobile app ecosystem. App teams work differently from each other, even when looking at similar team sizes, geographies, or industry verticals. Interestingly, backend and web frontend teams don't show this degree of disparity, even across organizations. Even at mobile-first businesses, backend and frontend teams display a high degree of operational maturity compared to their app teams.1
 
-Architecture patterns in mobile have matured considerably. We have well-understood approaches to state management, networking, and UI rendering. But release engineering patterns remain fundamentally different from what backend and web teams enjoy. Apps are not shipped like backends, and backends are not shipped like web frontends. Continuous delivery to app stores is simply impossible in the way we understand it for server-side applications. There is no rollback capability — once a build is out in the wild, you can't pull it back from users' devices.
+The tools and systems that support running an app-first business still have a long way to go. For e.g. PaaS systems ([Render](http://render.com/), [Fly](http://fly.io/)), IaC systems ([Argonaut](http://argonaut.dev/)) or declarative CD systems ([ArgoCD](https://argoproj.github.io/cd/)) cannot be directly translated to the world of apps, but it appears that there haven’t been enough attempts to figure out what apps need.
 
-This reality forces teams into release branching strategies, yet no community-accepted strategies exist in the way that, say, Gitflow became a standard for web development. Our conversations with teams revealed numerous opportunities to simplify these workflows. Beyond branching, there's additional complexity from on-device UI testing, managing multiple distribution channels, orchestrating phased releases, and navigating app store review processes. Each of these adds layers of coordination that most teams handle through a patchwork of scripts, spreadsheets, and tribal knowledge.
+## The struggles of delivery
 
-## On Building a New Product
+The communities around Android and iOS have done a lot of work on architecture patterns and cross-platform frameworks, and it has paid off in many ways. At some level this was expected because high-quality software engineering practices look similar regardless of the type of software being built. Modern programming languages liberally borrow from each other, which in turn supports the ability to create similar higher-level paradigms as well — unidirectional data flow, functional core + imperative shell, etc.
 
-![Tram illustration](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653631a80616565558fc98d_63e0f9ddf6111a7be941669c_a_tram_moving_really_fast_ghibli.png)
+However, patterns of release engineering have little in common with those of building software. Apps are not shipped like backend services, and backends are not shipped like web frontends. Backends and frontends are delivered through standard virtualized or containerized environments and consumed through standard client-side software (e.g. browsers), but apps reach consumers exclusively via centrally-controlled marketplaces. Evolution is slow because Apple and Google make so much money from their stores, and give the community little to no say in how these stores are governed and run.
 
-### New Market or No Market?
+Let’s take an example of what this causes: Unlike backends or web frontends, continuous delivery of apps to stores (and consumers) is not possible2, and neither is rollback of offending builds. As a result, app teams come up with some form of a release branching strategy — a way to stabilize a release candidate build, without blocking the team from continuing development work. Unfortunately, there are no community-accepted strategies to do this and in our conversations, we learnt of teams using needlessly complicated patterns. More than a few times, our discussion with engineers led them to understand during the call itself that they can simplify their process quite a bit!
 
-Building in a new space comes with the challenge of having little meaningful data to guide decisions. In the early days, we relied heavily on instinct and experience. We found ourselves constantly asking two questions: is this the wrong answer to a real problem, or is this simply not a problem that people have? Distinguishing between the two is critical when you're creating something in a category that doesn't have established benchmarks or competitors to learn from.
+Branching strategies is just one of the oddities of the app release engineering process. On-device UI testing, different distribution channels (internal groups, external groups), phased releases, manual and automated review processes, user reviews — all of these add complexity to an app’s release cycle.
+
+## On building a new product
+
+This is the first time that we’re building a product business from scratch, and a lot of people asked us what that has been like. The widespread literature on startups is not wrong — it is an emotional rollercoaster and a mental drain. If you choose to go down this path, have a strong support system and don’t hesitate to ask for help!
+
+Here are two things that stood out for us.
+
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653631a80616565558fc98d_63e0f9ddf6111a7be941669c_a_tram_moving_really_fast_ghibli.png)
+
+### New market or No market?
+
+We're building a product in a new space, and we had little meaningful data when we began. Much of our early work was based on instinct and experience — there was no way to distinguish the signals from the noise. As we had more conversations and received more realistic data, flaws in our thinking became apparent.
+
+However, some of the ideas mutated so much that we started to question the original premise itself. Even now, we often ask ourselves, "Is this the wrong answer? Or is this not a problem?" which is both amusing and stressful.
 
 ### Solutions vs Products
 
-A recurring theme in our conversations with stakeholders was the assertion that what Tramline builds is "not that hard to do." And in many ways, that's accurate — for internal platform teams with deep context about their own systems, building a release automation tool is straightforward. But extracting a solution into a product that people actually pay for has little to do with the solution itself. The challenge lies in making it work for the incredible diversity of real-world setups. Scaling for that diversity increases complexity exponentially. We learned to focus on the problem rather than the shape of the solution, because the problem is what remains constant even as implementations vary wildly across teams.
+Throughout the year, people told us again and again that what we’re building is “not that hard to do” — which is true! That is one of the reasons why solutions created by internal platforms teams work so well, as long as the business can afford to invest in them.
 
-## Opening Up
+However extracting a solution into a product that lots of people are willing to pay for, has very little to do with the solution itself. When one starts to build for the diversity of the real world, the same solution exponentially increases in complexity. The original solution may eventually be unrecognizable, but that's just the nature of product evolution. To deal with this dilemma, we continue to focus on the problem, not the shape of the original solution.
 
-![Treasure chest](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653631a119a2f1641762cef_63e5771315e4c33435ae533a_treasure_chest_being_opening.png)
+## Opening up
 
-Tramline will be released as open source software. This decision is rooted in several convictions we hold about the kind of software we're building:
+All said and done, what we did for most of 2022 was discover, discuss, and develop the foundation of a release platform for mobile apps. At its core, Tramline enables teams to codify their app release policy. It gives them the ability to express their release workflow in a way that it can be run by anyone.
 
-- Infrastructure software requires high reliability and longevity. Users need confidence that the tools they depend on for critical workflows will continue to exist and improve, and open source provides that assurance in a way that proprietary software cannot.
-- Workflow software requires collaborative design. The best release engineering tools will be shaped by the people who use them daily, not designed in isolation by a product team.
-- Open source communities create welcoming spaces for participation. They allow engineers to contribute fixes, suggest improvements, and build integrations that we could never anticipate on our own.
+When a system like this is adopted by an organization, there is very little room for failure. We want to assure teams of the longevity of our software, and we hope to support a rich variety of processes. However, hope is not a strategy so we’re going to go a few steps further…
 
-Our next steps include selecting the right license, documenting our systems thoroughly, and establishing community spaces where contributors can collaborate. The SaaS version of Tramline is already in private beta, and we're excited to open things up further as we move into 2023.
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653631a119a2f1641762cef_63e5771315e4c33435ae533a_treasure_chest_being_opening.png)
+
+Tramline will be **released and developed as open source software**.
+
+We’ve been thinking about this for some time now, and it is clear to us that this is the best way forward:
+
+-   Software that sits in the infrastructure layer should come with a high degree of reliability and longevity. Open source software guarantees that to everyone.
+-   Workflow software is difficult to build in a closed room. After all, how can a small team design something that’ll fit a wide variety of workflows?
+-   We cannot simply hope for convergence of ideas and best practices; we will have to create a welcoming space. Open source communities have done this successfully for decades.
+
+## 📆 🚀
+
+Over the next few weeks, we’ll lay the groundwork for community participation. We’ll [pick a license](https://opensource.org/licenses) that protects both, contributors and our SaaS business. We’ll document the system as it exists today, and we’ll create separate discussion spaces for the community and our customers.
+
+On the SaaS side, we’re already in private beta! If you’re interested in joining the program, write to us at [hello@tramline.app](mailto:hello@tramline.app) or use our [Calendly](https://calendly.com/tramline/45) to book a quick call with us.
+
+‍
+
+##### Footnotes
+
+1: Our data shows that the maturity gap is lower in US and EU markets in comparison to India and South East Asia, but it is still a significant gap.
+
+2: This is not entirely true if one uses React Native and [Code Push](https://microsoft.github.io/code-push/), but the data we collected on popular React Native apps shows that the frequency of store releases is not dramatically different in comparison to native apps.
+
+‍

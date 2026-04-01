@@ -1,38 +1,66 @@
 ---
 title: "Release Visibility"
 date: "2023-05-11"
-description: "How Tramline provides visibility into your app releases for the entire team."
+description: "Current Store Status, Slack notifications, All Builds — Features that increase visibility and add insights into your release cycle!"
 heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/665368f3e8c73de7724e1692_Updates%20Rect.png"
 author: "Nivedita Priyadarshini"
 category: "Feature Spotlight"
 ---
 
-Tramline balances automating tedious tasks, adding integrations for broad coverage, and providing visibility to everyone responsible for making a successful release.
+At Tramline, our focus is to balance automating manual work, adding integrations to cover as much ground as possible, and providing a high degree of visibility to people across the board responsible for making a successful release — testers, engineers, designers, and managers.
 
-## Your app in the store at a glance
+This is the first in this month’s edition of our product updates focused entirely on release visibility. We hope you like it!
 
-Automatically retrieves and updates current app status on App Store or Play Store continuously, independent of active release cycles.
+## 🔮 Your app in the store at a glance
 
-![App status](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653684cf5f3fb273c99b33b_645cf9e001c00b558681352b_1st.png)
+While you're busy shipping a new release, making it stable, and getting it out to different distribution channels, it's helpful to have a quick summary and make sure everything looks great on the storefront.
 
-## Keep your entire team informed on Slack
+As soon as you connect your app, we start periodically pulling the current status of the app on the App Store or Play Store. This data is fetched and updated regardless of an active release cycle on Tramline.
 
-Proactive notifications about release milestones: new release kickoffs and branch cuts, staged rollouts to percentages, full user rollouts.
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653684cf5f3fb273c99b33b_645cf9e001c00b558681352b_1st.png)
 
-![Slack notifications](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653684c5504f1c899e65fb4_645cfac7b7db256fd86cc795_2nd.jpeg)
+## 🔔 Keep your entire team informed on Slack
 
-![More notifications](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653684ca1e885762c0661a2_645cfae1ec1fdd09c996f904_3rd.jpeg)
+Tramline will actively (and sometimes proactively) inform the team about important highlights during a release. You can connect Slack as a notification provider and pick a channel to send updates, such as:
 
-![Rollout notification](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653684cfac1df87b334985c_645cfaf0c3ed947ba3486872_4th.jpeg)
+**A new release has been kicked off (and a release branch has been cut)**
 
-## Find the pesky build that one user is complaining about
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653684c5504f1c899e65fb4_645cfac7b7db256fd86cc795_2nd.jpeg)
 
-All Builds page shows comprehensive build history searchable by number or name, with release cycles, CI workflows, distribution channels, and download links.
+**A release version has been rolled out to a percentage of users**
 
-![All Builds](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653684c954fcf4f02f7e874_645cfb18bee0f96cf0f9bca6_5th.gif)
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653684ca1e885762c0661a2_645cfae1ec1fdd09c996f904_3rd.jpeg)
 
-## Who did what and when
+**A release was fully rolled out to all users**
 
-Detailed event logs track all release activities categorized as neutral notices, successful operations, or notable failures.
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653684cfac1df87b334985c_645cfaf0c3ed947ba3486872_4th.jpeg)
 
-![Event logs](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653684c8cd521a8408ac41a_645cfb280c6ed958ad22a791_6th.png)
+…and a whole lot more.
+
+Refer to the [docs](https://docs.tramline.app/integrations/notifications/slack) on how to get set up with Slack notifications.
+
+We are actively working on improving notifications and are also exploring other providers like Microsoft Teams and plain old e-mail for the near future.
+
+## 👀 Find the pesky build that one user is complaining about
+
+Your CI/CD workflow happily generates all the build artifacts. And then what? How does your team end up finding stuff when they actually need it?
+
+Tramline treats a release as first-class, so we have a view into all the builds you have _ever_ created. You can search builds by their number or name, figure out what release cycle the build belonged to, the specific CI workflow responsible for its creation, the various distribution channels it was sent to, and a direct download link for the build artifact.
+
+Here’s the **All Builds** page in action, you can find it on your App page.
+
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653684c954fcf4f02f7e874_645cfb18bee0f96cf0f9bca6_5th.gif)
+
+## 🕵️ Who did what and when
+
+If you look under the covers, there’s actually a surprising amount of context and information created during a release cycle that is perhaps not self-evident. The point of shipping a release, of course, is to make forward progress, but it can be super helpful to take a look back at what all goes into a release and who is responsible for what. This isn’t just useful for auditing, but also for improving bottlenecks in the release process.
+
+For every release, we maintain a detailed event log of all the important events. These are broadly divided into categories of — neutral notices, successful operations, and notable failures.
+
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653684c8cd521a8408ac41a_645cfb280c6ed958ad22a791_6th.png)
+
+## What else?
+
+Get started today on [Tramline](https://tramline.app/), or [book a call](https://calendly.com/tramline/45) with us and we’ll help you automate and streamline your app releases. If you need support, [find us here](https://docs.tramline.app/getting-support)!
+
+That’s all for this week, until the next train! 🚃

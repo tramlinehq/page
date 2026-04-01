@@ -1,39 +1,58 @@
 ---
 title: "The special case of mobile DevOps"
 date: "2025-01-01"
-description: "Why mobile app releases need different DevOps practices than web and backend."
+description: "Adapting DevOps for the mobile context is an ongoing process, but essential for the continued success and evolution of mobile apps."
 heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6772b4f64a519b4f039be8cb_WhatsApp%20Image%202024-12-28%20at%2013.51.25.jpeg"
 author: "Pratul Kalia"
 category: "Insights"
 ---
 
-DevOps is a set of ideas and practices that improve collaboration between development and operations. The objective is rapid, quality software delivery — achieved through mindset shifts and better tooling.
+DevOps is an overused and overloaded term, so let’s start with a quick history lesson: where did it come from? And what is it, really? A process? A type of software? A job title?
+
+The right answer is somewhat all of the above.
+
+DevOps is a set of ideas and practices that improve collaboration and communication between development (Dev) and operational teams (Ops). The aim of DevOps is to enable teams to deliver high-quality software quickly. It is both a mindset shift and an investment in tooling. While agile methodologies enhance planning and development phases of software, DevOps optimizes the release engineering process.
 
 ## Wins in traditional DevOps
 
-Dev and Ops used to be separate functions with conflicting priorities. Developers wanted to ship fast; operations wanted stability. DevOps practices — automated testing, CI/CD pipelines, infrastructure as code — bridged that gap. Web and backend teams can now deploy daily or even hourly. Monitoring and observability maintain oversight after deployment.
+Before DevOps, development and IT operations teams had separate (and often opposing) goals and responsibilities. Developers were responsible for architecting the software and writing the code but weren’t concerned with its deployment or server maintenance. That responsibility rested with IT — the people that provisioned and maintained hardware, monitored the running software, and made sure that it had enough resources to run effectively.
 
-But mobile apps don't get that luxury.
+This separation between the development and operations teams created an inefficient feedback loop. IT operations had to inform developers if the software behaved unexpectedly, so it could be fixed and deployed again. On the other side, they did not have enough understanding or empathy for the work that IT did. The goals and success criteria of both departments were orthogonal to each other.
+
+The DevOps movement pushed to streamline and automate the complete path of delivering software by blending development and operations. Thanks to practices like automated testing, CI/CD pipelines, and infrastructure as code, teams were able to iterate quickly – daily or even hourly deployments – with a high degree of confidence. Monitoring tools and observability features helped keep track of performance so issues could be spotted and addressed quickly. Speed, reliability, and constant feedback became the guiding principles.
+
+It was and continues to be an ideal world for web and backend teams, who have a lot of flexibility in their deployment process. However, mobile apps do not get that luxury.
 
 ## How is mobile different?
 
-App stores created enormous distribution advantages, but they also introduced constraints that are entirely absent in web development:
+iOS and Android devices were a breakthrough in comparison to older systems like Blackberry and Symbian. From a business perspective, the ability to build and easily distribute an app to millions of people through the app stores was transformative. However, with that came constraints that do not affect traditional websites or backend services.
 
-- **App store review processes** can take hours to days, adding unpredictable delays to every release.
-- **No rollback capability** if issues are discovered post-release. Once a build is out, it's out.
-- **User-dependent update adoption** means a significant portion of your user base may be running outdated versions at any given time.
+The centralized store delivery model has not been helpful for DevOps practices.
 
-## Impact on app teams
+First off, app stores have a manual review process for new apps and for every update. Teams have to wait for an approval that can take anywhere from a few hours to several days. This waiting time becomes an unavoidable bottleneck, especially when working on critical features or bug fixes.
 
-These constraints force mobile teams into fundamentally different DevOps approaches:
+Second, if something goes wrong on a device, mobile operating systems do not allow the installed app to be rolled back to a previously released stable version. Without rollbacks, continuous delivery is impossible in the way that engineering teams have traditionally operated for decades.
 
-- **Reduced deployment frequency** — monthly releases instead of multiple times daily.
-- **Extensive staging and testing** before submission, since there's no quick fix once a build is live.
-- **Phased rollouts with monitoring** to catch issues before they reach the entire user base.
-- **Code freezes during release cycles** to avoid destabilizing builds in progress.
-- **Multiple version maintenance** to ensure backward compatibility with older clients still in the wild.
-- **Feature flags and remote kill switches** as escape hatches for problematic features.
+Then comes the issue of user adoption: apps are dependent on the user’s device to trigger an update to the latest version. In practice, many users continue using old versions for weeks or months, which increases not just the maintenance load but also makes it hard to deliver a consistent experience.
+
+## The impact on app teams
+
+In the interest of stable releases, the DevOps practices of app teams look starkly different in comparison to their counterparts in the web and backend world. Mobile DevOps entails a mix of manual processes and unique workarounds.
+
+To start with, app teams are forced to reduce deployment frequency. It is common to see backend engineers deploy services multiple times a day, but in the same organization, apps are updated only a few times a month.
+
+Apps are extensively tested in controlled (staging) environments to catch bugs as early as possible. Even when the RC build is released to app stores, it is done in phases and monitored carefully. If something goes wrong, the rollout is paused to limit the number of affected users.
+
+Along the same lines, app teams use code freezes to allow release stability work to happen on a separate branch that doesn’t block the rest of the team. Unfortunately, this means that once the release is finished, changes on the release branch must be merged back to the working branch, which is a tedious, time-consuming task.
+
+App teams also need to maintain multiple versions of the app, supporting older ones that haven’t been updated, while simultaneously pushing new ones. It is a logistical challenge not just for app engineers, but also for those that build the APIs used by the app: backward compatibility must always be considered when changing an API contract.
+
+In an ideal world, teams would catch bugs before they reach production. In the real world, teams anticipate and plan for things going wrong in their apps. Remote kill switches are a popular, albeit aggressive method of preventing users from accessing a broken app while an updated build is prepared and released. Feature flags are used to remotely disable broken features while keeping the rest of the app alive, but they are a maintenance and testing burden.
 
 ## Applying a mobile lens
 
-The core principles of DevOps — automation, fast feedback loops, shared ownership — remain relevant for mobile. But the specific constraints of app distribution necessitate innovative solutions. We can't simply copy-paste web DevOps practices and expect them to work. Instead, we must revisit these systems with a mobile lens, adapting proven ideas to the realities of store reviews, user-controlled updates, and the absence of rollbacks.
+The economic success of mobile apps, coupled with their development and operational complexity, has pushed engineering leaders into uncharted territory. We have years' worth of DevOps knowledge that is not directly applicable to mobile apps, which means systems and processes have to be revisited with a mobile lens.
+
+While the core principles of DevOps, such as automation, continuous integration, and monitoring, remain applicable, the specific constraints and limitations of apps necessitate innovative solutions. Adapting DevOps for apps is an ongoing process, but it is essential for their continued success and evolution.
+
+As mobile continues to grow in importance, the DevOps community will need to evolve its practices to better support the unique needs of mobile app development and delivery.

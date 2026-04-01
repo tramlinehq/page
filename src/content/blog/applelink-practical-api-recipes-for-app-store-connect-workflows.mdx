@@ -1,38 +1,75 @@
 ---
 title: "Applelink: Practical API Recipes for App Store Connect Workflows"
 date: "2023-04-18"
-description: "How we built a self-contained service to wrap App Store Connect API workflows."
+description: "As an open source release coordination platform, Tramline integrates with many different systems that are used while shipping mobile apps. Here we talk about why we wrote Applelink, an open source free-standing wrapper over the App Store Connect API."
 heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653646bfc14700435a905e0_Centered%20Image.png"
 author: "Akshay Gupta"
 category: "Engineering"
 ---
 
-Tramline is a Rails monolith for release coordination. It integrates with GitHub, GitHub Actions, Bitrise, Slack, and app stores. All integrations maintain a strict domain-agnostic API layer.
+[Tramline](https://github.com/tramlinehq/tramline) is a modest Rails monolith (as opposed to a [majestic](https://m.signalvnoise.com/the-majestic-monolith) one) that wants to stay a monolith for as long as possible. We tend to only _mildly_ impose advice such as “you should always start out with a monolith” or “micro-services are actually a terrible idea for a startup” for our engineering decisions. As with most practical things, all our decisions have devils inside of the details rather than adages.
 
-![Integration architecture](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e68b4f3ed49c2317c2e8c_643e7cc0f6b095682eb16391_integrations.png)
+Since a release coordination platform talks to a variety of fragmented yet necessary tooling, the real value comes along when many integration touch-points are combined to ship new releases on a predictable and reliable cadence.
+
+We presently [integrate](https://www.tramline.app/integrations) with:
+
+-   GitHub for source control
+-   GitHub Actions and Bitrise for post-commit workflows
+-   Slack for notifications and sending builds
+-   App Store and Play Store for shipping releases
+-   GitLab, Sentry, and Firebase App Distribution _coming soon_
+
+All of our integrations sit inside the aforementioned monolith. This is for simplicity of maintenance and deployments. That being said, we maintain a strict domain-agnostic layer for handling API calls so that if integration endpoints _do_ need to move out — say, for accommodating higher concurrency — the contract from the layer “above” does not need to dramatically change (if at all).
+
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e68b4f3ed49c2317c2e8c_643e7cc0f6b095682eb16391_integrations.png)
+
+However, by integrating App Store Connect, we intentionally break our own _mild_ constraint against opening the gates to a service-based architecture.
 
 ## App Store Connect & Fastlane
 
-The App Store Connect API manages TestFlight and App Store releases. The Ruby library Spaceship implements the API and underpins Fastlane. Benefits: battle-tested recipes, direct Fastlane integration. Challenge: Spaceship is part of the larger Fastlane gem with unnecessary dependencies incompatible with Rails 7.
+App Store Connect has an extensive [developer API](https://developer.apple.com/documentation/appstoreconnectapi) to manage releases on both TestFlight and App Store. You can do most things through the API (a notable exception being able to upload builds). The canonical library in Ruby that implements a large part of the API is the excellently named [Spaceship](https://spaceship.airforce). Spaceship is, in fact, an abstraction higher than what the API allows you to do. This is because it’s designed to be [Fastlane](https://fastlane.tools)\-first. All the actions and recipes that Fastlane supports are sometimes direct interfaces implemented in Spaceship.
 
-## The Applelink Solution
+Using Spaceship gives us two benefits:
 
-Applelink is a self-contained, rack-based service built with Hanami::API that wraps Spaceship and exposes common recipes via stateless RESTful endpoints. Currently 13 API endpoints.
+1.  Use many of the battle-tested recipes directly
+2.  Integrate the Fastlane gem with Rails
 
-A complex recipe example (release/prepare): ensures App Store version availability, updates release metadata, enables phased releases.
+Since Spaceship is a _part_ of Fastlane, it makes integrating Fastlane directly with a Rails app quite tricky. Fastlane is a big gem and a lot of the code just isn’t useful to the primary Tramline service. More importantly though, Fastlane’s dependencies simply do not play very well with Rails 7.
 
-A simple example (release/live): returns current status of the latest live release.
+## And so, Applelink
 
-## Efficiency Improvements
+We built [Applelink](https://github.com/tramlinehq/applelink), a small, self-contained, rack-based service using [Hanami::API](https://github.com/hanami/api), that wraps over Spaceship and exposes some nice common recipes as RESTful endpoints in an entirely stateless fashion. These are based on the needs of the framework that Tramline implements over App Store. The API pulls its weight so Tramline has to do as little as possible. Currently, it exposes [13 API endpoints](https://github.com/tramlinehq/applelink#api).
 
-Spaceship sometimes makes inefficient API call combinations. Applelink optimizes by selecting the most efficient path using proper API relationships.
+Tramline hops all App Store requests through this service:
 
-![Applelink architecture](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e68b4a7563ccde04f3a4f_643e7cf1f6b095bf8eb165cd_applelink.png)
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e68b4a7563ccde04f3a4f_643e7cf1f6b095bf8eb165cd_applelink.png)
 
-## Current Status
+In Applelink, a complex recipe, such as [release/prepare](https://github.com/tramlinehq/applelink#prepare-a-release-for-the-app), will perform the following tasks all bunched up:
 
-Running successfully for months. Future iterations may replace Spaceship entirely. As a standalone service, endpoints are usable in CI actions or Slack bots. Open source under Apache 2.0.
+-   Ensure that there is an [App Store version](https://developer.apple.com/documentation/appstoreconnectapi/app_store/app_metadata/app_store_versions) that we can use for the release, or create a new one
+-   Update the release metadata for that release version
+-   Enable phased releases, if necessary
 
-## Prior Art
+Similarly a simple fetch endpoint like [release/live](https://github.com/tramlinehq/applelink#fetch-the-status-of-current-live-release) will give you the current status of the latest release.
 
-Cider by Aaron Sky (Go), Store Quirks.
+Even though Spaceship has helped us come a long way, it isn't necessarily efficient at choosing the right combination of API calls underneath. For example, while preparing a release, Spaceship could end up making 3 separate API calls to look for the app, update its attributes (setting release type, version name etc.) and then select the correct build.
+
+In some instances it’s just better to drop the interface from Spaceship altogether and make direct API requests. Applelink tries to choose the most efficient path by making use of the correct [relationships](https://developer.apple.com/documentation/appstoreconnectapi/app/relationships/appstoreversions).
+
+Since Fastlane is mainly intended as a command-line tool for build pipelines, its primary focus may not be an efficient request-response cycle.
+
+## Where are we now?
+
+Applelink has been operating smoothly for the past few months and this model has proven to be an effective starting point. It is possible that after a few more iterations we decide to retire the use of Spaceship. Nevertheless, we would have a solidified API in place, and it would only be a matter of swapping out the implementation.
+
+Since Applelink is a separate service that is not reliant on Tramline’s internal state, all the API endpoints are valid outside of Tramline. It can be used in a standalone way from a CI action or a Slack bot that spits out release information periodically.
+
+As with Tramline, [Applelink is open source](https://github.com/tramlinehq/applelink/) under the Apache 2.0 License.
+
+## Prior art
+
+[Cider](https://github.com/cidertool/asc-go) by Aaron Sky, aims to implement a significant portion of the API in Go which has been helpful in confirming some of our assumptions.[](https://github.com/tramlinehq/store-quirks)
+
+[Store Quirks](https://github.com/tramlinehq/store-quirks) is partly maintained by findings made during the implementation of Applelink.
+
+‍

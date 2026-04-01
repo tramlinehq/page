@@ -1,61 +1,135 @@
 ---
 title: "Git branching patterns for mobile app development"
 date: "2022-05-23"
-description: "A comprehensive guide to branching strategies for mobile app teams."
+description: "Picking a branching strategy has far-reaching consequences: it determines how developers collaborate, how code gets deployed, and how easy it is to understand changes when debugging."
 heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653672822402c3ccadf230a_Richard%20Melick%20Unsplash.jpg"
 author: "Pratul Kalia"
 category: "Insights"
 ---
 
-Selecting a branching approach carries significant implications for how your team collaborates, deploys, and debugs issues in production. Unlike web applications, mobile apps can't deploy constantly — app store review processes, user update cycles, and binary distribution all impose constraints that don't exist on the server side. Fast-paced teams typically establish release branches from main for stabilization while allowing ongoing development to continue uninterrupted on the main branch.
+Picking a branching strategy has far-reaching consequences: it determines how developers collaborate, how code gets deployed, and how easy it is to understand changes when debugging.
+
+For mobile app developers, life is rather cumbersome because continuous deployment is out of the question. One can still continuously _deliver_ a release-ready binary, but the way App Store and Play Store work make it impossible to _deploy_ every release to end-users.
+
+Teams that work on fast-moving apps often create release branches from the _main_ branch where builds are stabilised and tested. This also allows developers to continue working on the _main_ branch and not get blocked by a code freeze.
+
+Let’s look at the three most common patterns used by app teams.
 
 ## Gitflow
 
-Gitflow has existed for a long time, and there is abundant guidance available on how to implement it. It is increasingly seen as outdated by many teams because it creates merge complexity and administering many persistent branches places cognitive strain on developers. Despite this, its popularity has perpetuated adoption — many teams use Gitflow simply because it's what they learned first.
+[Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) has been around for quite some time, and there are lots of references on how to implement it. It is [considered](https://www.endoflineblog.com/gitflow-considered-harmful) [a](https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow) [legacy](https://www.tugberkugurlu.com/archive/resistance-against-london-tube-map-commit-history-a-k-a--git-merge-hell) pattern today because it has the propensity to create merge hell around integration time, and managing so many long-lived branches is a cognitive overhead for the team. However, because it was popular for so many years, it has continued to exist inside many large organisations and legacy codebases.
 
-The standard Gitflow setup consists of a main branch that represents production, a dev branch for active development, and feature branches created from dev that are merged back after code review. Releases are created by merging dev into main with a tag. Hotfixes under Gitflow are unnecessarily complex, with two common approaches typically described in the literature, both of which require careful coordination to avoid introducing regressions.
+Most versions of it have:
 
-The primary benefit of Gitflow is that developers can avoid using feature flags entirely, which prevents the accumulation of flag-related technical debt. For teams that are uncomfortable with or unable to adopt feature flags, this is a meaningful advantage.
+-   The _main_ branch which represents code in production.
+-   The _dev_ branch which represents code that is still in development.
+-   Many _feature_ branches which developers create from the _dev_ branch, and then merge back into the _dev_ branch (often after code review).
+
+Once a release is made, someone manually merges the _dev_ branch into the _main_ branch, usually creating a tag on the merge commit. This tag represents the state of production.
+
+If a hotfix has to be made against the production build… pain ensues. We’ve interviewed more than thirty mobile engineering teams, and every team that is still relying on Gitflow, uses one of the following approaches:
+
+-   Create a hotfix branch from the relevant commit on _main_, merge it back to main, then merge _main_ into _dev_, and expect all developers to merge _dev_ back into their feature branches.
+-   Create a hotfix branch from the relevant commit on _main_, merge it into _dev_, and then "backmerge" _dev_ back into _main_.
+
+The obvious issue with this approach is that it is needlessly complicated and must be done manually. No commonly available tool will manage this branching/hotfix complexity for mobile teams.
+
+Merging long-lived branches is a big overhead of using Gitflow and one of the reasons why it slows down release cycles. After every major merge teams have to ensure that the state of code in the integrated branch represents what they want to release. Often for teams, it takes many days of manual work to test these release builds!
+
+However, the biggest advantage of Gitflow is that developers don’t use [feature flags](https://martinfowler.com/articles/feature-toggles.html) for merging WIP work-in-progress code, so no technical debt is incurred by using flags themselves. Of course, they may still use remotely-controlled flags for dark rollouts or A/B testing.
 
 ## Trunk-based development
 
-Trunk-based development actually precedes Gitflow, despite being less widely adopted in the mobile development community. Its core principles are straightforward: there is a single main branch, all developers commit to main including incomplete work protected behind feature flags, main is always release-ready, and code reaches production multiple times daily. Trunk-based development is widely considered a requirement for achieving true Continuous Delivery. The primary challenge is that no major hosting platform natively supports it with built-in tooling.
+Most people don’t realise this but trunk-based development (henceforth referred to as TBD) predates Gitflow. As the [official website](https://trunkbaseddevelopment.com/) on TBD says:
+
+> "It has been a lesser-known branching model of choice since the mid-nineties and considered tactically since the eighties. The largest of development organisations, like Google (as mentioned) and Facebook practise it at scale."
+
+The broad ideas behind TBD are: 
+
+-   A single primary _main_ branch: the trunk of the codebase.
+-   All developers directly commit to _main_, including WIP code.
+-   All WIP code is behind a feature flag.
+-   The _main_ branch is always release-ready.
+-   The _main_ branch is deployed to production very frequently, multiple times a day.
+-   (Ideally) feature flags can be toggled on or off remotely.
+
+TBD is a [prerequisite for practising Continuous Delivery](https://www.infoq.com/news/2018/04/trunk-based-development/). If developers are not merging code to the _main_ branch frequently, then code is not being _continuously_ delivered. With patterns like Gitflow, there are often days or weeks of delay before code reaches production.
+
+The issue with practising TBD is that no [popular](https://github.com/) [code](https://about.gitlab.com/) [hosting](https://bitbucket.org/product) platform supports it out of the box. [Phabricator](https://www.phacility.com/phabricator/) supports trunk workflows, but it isn’t maintained anymore. Not all is lost though – we hope that new platforms like [Trunk.io Merge](https://trunk.io/products/merge) will continue to emerge so that TBD is easy for everyone to practise.
+
+Specific to mobile app development, TBD can be implemented in two ways: “Pure Trunk” and “Almost Trunk”. This nomenclature is our invention; these words are not used in the community, but we’re going to use them to describe the two methods.
 
 ### Pure Trunk
 
-Pure Trunk is the official form of trunk-based development. It is used at companies like Google and Facebook, where developers commit directly to main with no remote branches. Fast-forward pushes are required, ensuring a linear commit history. Code review happens through staging areas rather than pull requests. Releases are simply tags on main — when the team decides to release, they tag the current state of main and ship it. Hotfixes follow an identical procedure: commit the fix to main and create a new tag. There is no separate hotfix workflow, which dramatically reduces complexity.
+In Pure Trunk, developers follow what the official TBD website describes. Many teams at eminent organisations like Google and Facebook follow this approach.
+
+Everyone directly commits to the _main_ branch, and developers do not create any branches on the remote server – they may create local branches for their own convenience though. The system ensures that all pushes to _main_ are [fast forwards](https://support.atlassian.com/bitbucket-cloud/docs/git-fast-forwards-and-branch-management/), so developers will pull --rebase the _main_ branch from the remote server before pushing their local changes. Code that is WIP is also continuously pushed to _main_ but kept behind a feature flag.
+
+Code review in such a system is done by holding commits in a special area before they are merged to the _main_ branch – internal tooling does this automatically. The tooling will also continuously check for mergeability of commits as the _main_ branch is always moving forward.
+
+Releases are just tags created on _main_. If any issues are discovered when verifying a release, the fixes are simply committed directly to _main_, and a new tag is created for the fixed release. This also makes it ridiculously easy to create a hotfix for a production build – it’s the exact same process! The hotfix commit is created on _main_ and a new tag is created for the release.
 
 ### Almost Trunk
 
-Almost Trunk is a simpler variant that works naturally with platforms like GitHub and GitLab. Developers create short-lived branches from main that last no more than 24 to 48 hours. Any incomplete work gets protected behind feature flags so it can be merged safely. Release branches are created from the latest main commit when it's time to ship.
+Almost Trunk is much easier to implement because it needs no special tooling, so it can be practised using Github or Gitlab. For example, the [Simple.org Android app](https://github.com/simpledotorg/simple-android) uses this approach.
 
-The key difference from Gitflow is that developers never commit directly to release branches. All fixes are committed to main first, then cherry-picked to the release branch. This ensures that main always contains the complete history of all changes. Hotfixes follow an identical process — fix on main, cherry-pick to the release branch, and tag a new release.
+Instead of directly committing to the _main_ branch, everyone creates short-lived branches from the _main_ branch for all work. These branches are merged into _main_ within 24-48 hours, which requires some discipline from the team. If a feature is finished within that time frame, it is merged without a feature flag. Otherwise, the WIP code is put behind a flag and then merged.
+
+When doing releases, a special release branch is created from the latest commit on the _main_ branch. We say latest because, in the philosophy of trunk, all commits on the _main_ branch are release ready and _main_ is never broken. The purpose of the release branch is to hold any release-specific fixes that may need to be done as the release build is tested and verified.
+
+However, there is a key difference between Gitflow and Almost Trunk: commits are never made directly on the release branch. All fix commits must be created on the _main_ branch (using the aforementioned short-lived branch process), and then those fix commits are [cherry-picked](https://www.atlassian.com/git/tutorials/cherry-pick) onto the release branch. This ensures that everyone else on the team who is continuing to deliver work gets the fix immediately. It also means that the release branch does not need to be merged back into _main_; it is simply a holding branch that can be ignored once the release has been completed.
+
+Hotfixing a production build follows the same process: the hotfix commit lands on _main_ and is then cherry-picked onto the relevant (usually the latest) release branch, and a new release is created.
 
 ## Prerequisites of TBD
 
-### Automated testing
+### Automated testing (as much possible)
 
-Automated testing is essential because main constantly progresses with new commits from every developer on the team. A robust mix of unit and integration testing must run against every commit to catch regressions early. Without automated testing, a corrupted main branch can go unnoticed for hours or days, blocking the entire team and undermining the whole approach.
+Practising either form of TBD without having automated tests is very difficult because the _main_ branch is moving forward all the time, and all commits must be release-ready. Teams that do this well have a mix of unit and integration tests that are run on speedy hardware, against every commit.
+
+Without automated tests, if someone breaks _main_ they will probably never realise what they’ve done. Every developer who delivers work after that broken commit is also (perhaps unknowingly) working on a broken branch. This will cause a lot of pain for the team while also making the _main_ branch un-release-worthy.
 
 ### Feature flags
 
-Feature flags come with tradeoffs — they add complexity to the codebase and require discipline to clean up once features are fully launched. But trunk-based development without feature flags is essentially impossible. Developers need the ability to merge incomplete work to main without exposing it to users. Internal build screens that allow non-technical team members to toggle flags are particularly valuable for QA and product teams who need to test work in progress.
+Flags have always [been a double-edged sword](https://martinfowler.com/articles/feature-toggles.html#FeatureTogglesIntroduceValidationComplexity) but implementing TBD without them is impossible. Whether working on features or fixes, developers may take many days or weeks to write code. The only way to keep WIP to a minimum is to keep merging that code but keep it behind a flag.
+
+For app teams, it is helpful to have a special screen in internal builds which people can use to toggle features on or off. It allows non-technical stakeholders (think the product and design teams) to try out work that is in progress, without involving developers to provide builds with specific features turned on. An example of such a flags screen can be seen in the Google Chrome browser by going to chrome://flags.
 
 ### Access to intermediate builds
 
-Easy access to builds from feature branches is important for stakeholder verification. Product managers, designers, and QA engineers need to be able to install and test builds from any branch quickly. This fast feedback loop is what makes short-lived branches viable — if it takes hours to get a testable build, developers will keep branches alive longer, defeating the purpose.
+This is not exactly a prerequisite for TBD but having easy access to intermediate builds from feature branches – even short-lived ones – makes life much easier for stakeholders to verify what is landing on the _main_ branch. For example, if every short-lived branch generates an app build and sends it to a channel (Slack, Firebase App Distribution, internal S3 bucket etc.), anyone on the team can download that build and install it on their test device. They may not test every single build but the process is very easy when that need arises.
 
 ## Epilogue
 
-For small teams of five developers or fewer, Gitflow works reasonably well. You can simplify it further by dropping the dev branch and working directly with main and feature branches. For larger teams, commit to Almost Trunk for scalable release engineering. Even teams with manual testing processes can adopt Almost Trunk successfully — the key is ensuring that release branches provide a stabilization period for manual QA.
+So what should your team pick?
 
-A note on React Native and CodePush: CodePush allows over-the-air JavaScript bundle updates, bypassing the app store review process entirely. While this sounds appealing, reliability concerns persist. OTA updates can create version fragmentation, and debugging issues across different bundle versions adds complexity that teams should carefully evaluate before adopting.
+If you’re a small team – say less than five developers – Gitflow should work fine. Coordination is not a big issue at that team size, and it’s probably not worth incurring the extra overhead of following TBD. You can simplify Gitflow by discarding the _dev_ branch and having everyone work off the _main_branch directly. Feature branches, release branches, and tagging remain the same.
+
+For larger teams, it is worth the time and effort to invest in Almost Trunk. As your product and teams grow, TBD will scale well and continue to give you the benefits of effective release engineering.
+
+#### Only manual testing?
+
+Many teams rely only on manual testing for their mobile apps, but even for those teams, we recommend the Almost Trunk pattern. Manual methods take so much time that your team can only verify a limited number of builds. Often, these end up being just the integration builds – commits which contain finished features, specific bug fixes, or the ones stabilising a release. Those integration builds get created in all branching strategies. Let’s see some examples:
+
+-   Feature-specific builds? Create them from the last short-lived branch by temporarily enabling a flag. Otherwise, create them from _main_ but let people turn on the feature using the flags screen.
+-   Bugfix builds? Test the build that gets generated from _main_ once the fix has landed.
+-   Release builds? Get them from the release branch, or the release tag on the _main_ branch.
+
+You get to do everything you do in your current release process, but with a branching model that is far simpler to understand.
+
+#### React Native CodePush?
+
+Microsoft’s [CodePush](https://docs.microsoft.com/en-us/appcenter/distribution/codepush/) framework enables React Native apps to deploy JavaScript bundles of their app over-the-air, which is as close to continuous deployment as one can get. CodePush allows developers to bypass sending updated binaries to the App or Play Store for every small change that has to be delivered to users. It is a promising piece of technology that is [officially blessed](https://microsoft.github.io/code-push/faq/index.html#1-does-the-apple-app-store-allow-developers-to-perform-these-types-of-updates) by the App Store and Play Store policies.
+
+However it comes with limitations: It only works with apps built using React Native and Cordova, and the [success rate of update delivery](https://www.google.com/search?q=codepush+poor+reliability) is mediocre at best. In our conversations with React Native teams, CodePush reliability repeatedly came up as a problem. It is possible to verify this by looking at store binary update data for popular React Native apps because those apps still do frequent deploys to the stores even with access to CodePush.
 
 ## Further reading
 
-- *Patterns for Managing Source Code Branches* by Martin Fowler
-- *Accelerate* by Nicole Forsgren, Jez Humble, and Gene Kim
+-   [Patterns for Managing Source Code Branches](https://martinfowler.com/articles/branching-patterns.html)
+-   Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations (book)
 
----
+‍
 
-*Acknowledgments: Abhinav Sarkar, Apoorv Khatreja, Arnav Gupta, Kinshuk Sunil, Saket Narayan, Sanchita Agarwal.*
+\_\_\_\_\_\_\_\_\_\_\_
+
+Thank you to [Abhinav Sarkar](https://twitter.com/abhin4v), [Apoorv Khatreja](https://twitter.com/ap00rv), [Arnav Gupta](https://twitter.com/championswimmer), [Kinshuk Sunil](https://twitter.com/kinshuksunil), [Saket Narayan](https://twitter.com/saketme), [Sanchita Agarwal](https://twitter.com/sanchita_ag) for reviewing drafts of this post.

@@ -1,38 +1,36 @@
 ---
 title: "Dear Apple and Google: still no app rollbacks?"
 date: "2025-03-17"
-description: "The case for native rollback support in iOS and Android app stores."
+description: "Native support for app rollbacks is still missing in the app stores, and could be a game-changer for delivering reliable mobile experiences. Are Cupertino and Mountain View paying attention?"
 heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/67ca0a457d762f62988f28be_main.png"
 author: "Akshay Gupta, Pratul Kalia"
 category: "Insights"
 ---
 
-You ship an update after two weeks of work. The App Store review takes two days. A critical bug is found in production. It can't be fixed via the backend. This isn't hypothetical — it happens regularly. And the only remedy is restarting the entire release cycle from scratch.
+Congratulations, you just shipped this month’s first app update. It took you almost two weeks to get this out, and it sat under _Waiting for Review_ on the App Store Connect dashboard for a good two days. Despite all the rigorous testing, you now encounter a critical, unforeseen issue in the wild—one that cannot be fixed through backend service changes.
 
-There is a fundamental asymmetry between backend and app development. On the backend, rollbacks are a cornerstone of continuous delivery practices. If something goes wrong, you revert. But for mobile apps, despite it being technically feasible, rollbacks simply don't exist. This gap is not a technical limitation — it's a policy choice.
+It’s not a far-fetched scenario. Most app teams [have](https://www.theverge.com/2025/1/13/24342282/sonos-app-redesign-controversy-full-story) [experienced](https://www.business-standard.com/article/companies/all-for-a-ride-techies-flag-major-vulnerabilities-in-ola-app-115032000022_1.html) [this](https://www.nytimes.com/2019/01/29/technology/facetime-glitch-apple.html), and currently, the only recourse is to go through the entire release process again: fix, build, review, and redistribute. It is time-consuming for developers, frustrating for users experiencing the broken app, and potentially damaging to the app’s reputation.
 
-## Native rollback support
+In the world of backend and web development, the ability to quickly roll back a faulty deployment is the cornerstone of robust continuous deployment (CD) practices. It serves as a safety net, enabling rapid iteration and confident releases. However, this capability is notably absent in the app ecosystem.
 
-What we're proposing is straightforward: native rollback support in iOS, Android, and their respective stores. This would let developers instantly revert users to a previously released, stable build. We're not asking for full control over user devices — just a readily available backup. The stores already deliver previously live builds to users in various scenarios. The barrier here is policy, not technology.
+Rollback support, natively built into iOS, Android, and their respective app stores, would fundamentally change this dynamic. It would allow developers to instantly revert users to the previously released stable build in the event of a catastrophic failure.
 
-## Addressing the concerns
+As of today, app updates are controlled by the end user’s device. While this autonomy is beneficial for optimizing battery life, it also means that vendors lack a critical mechanism for managing app stability in production. Rollback support would not be about providing full autonomy over which app version is live on the user’s device; rather, it would be about maintaining a readily available backup. From the app store’s perspective, delivering a previously live build should be no different from delivering the current one. The challenge here is not technical but rather a matter of policy.
 
-### Data migration
+## Addressing key concerns
 
-Both platforms support on-device SQLite migrations. With rollbacks in the picture, developers would need to ensure backward-compatible migrations. This is an engineering discipline, not an insurmountable obstacle — and it's one that backend teams already practice.
+Implementing such a system naturally raises several questions, particularly around **data migration**. Both iOS and Android already support running migrations on an app’s on-device SQLite database when an update is applied. Writing reliable migrations is the developer’s responsibility, and with rollbacks in place, developers would need to ensure that migrations are also backward-compatible. The assumption would have to be that any build could potentially be rolled back.
 
-### Battery and storage
+Another concern involves **battery optimization and device storage**. If rollback builds are not pre-cached, on-demand rollbacks could lead to increased battery drain as the device wakes up in the background to download the build. On the other hand, pre-caching would incur a higher storage cost, but the benefit of speed could outweigh this drawback. App stores already employ binary diffing for updates, and the same technique could be applied to rollback updates, minimizing network bandwidth and storage usage.
 
-On-demand rollbacks risk battery drain from re-downloading, while pre-caching previous builds increases storage usage. However, binary diffing techniques are already used for regular app updates and could minimize both concerns significantly.
+**Security and abuse prevention** must also be considered. To prevent misuse, app stores could monitor rollbacks and their impact on user experience rather than imposing arbitrary restrictions on developers. Excessive rollbacks could affect an app’s rating, incentivizing developers to maintain high-quality releases and conduct thorough testing. The goal is not to restrict rollbacks, but to encourage a culture of responsible shipping.
 
-### Security and abuse
+## Prediction: native rollbacks in five years
 
-Rather than restricting rollbacks entirely out of fear of abuse, stores could monitor rollback frequency. Excessive rollbacks naturally hurt app ratings and reviews, which already incentivizes responsible shipping practices. The threat of misuse doesn't justify withholding a critical capability from the entire ecosystem.
+The rise of frameworks with over-the-air (OTA) update capabilities highlights the limitations of native app deployment models. Both [React Native](https://reactnative.dev/) (JavaScript) and [Shorebird](https://shorebird.dev/) (Dart) support OTA updates, enabling faster iterations and bug fixes. This is only possible because App Store and Google Play make [exceptions for interpreted languages](https://docs.shorebird.dev/faq/#does-shorebird-comply-with-play-store-guidelines) and don't include compiled languages (Swift, Kotlin) when allowing OTA updates.
 
-## Historical context
+Historically, features like phased releases were absent in the early days of the app stores. It [took](https://departures.to/about/guides/how-to-use-app-store-phased-releases) [years](https://developers.googleblog.com/en/google-io-2013-for-the-developers/) for them to be implemented, but they eventually were. Their adoption was driven by a vocal minority of developers (both large and small) advocating for them, as well as by the marketplaces’ incentive to help developers ship higher quality apps to users.
 
-The rise of OTA update frameworks like React Native's CodePush and Shorebird for Flutter highlights just how limiting native deployment mechanisms are. Stores allow OTA updates only for interpreted languages, leaving native app teams without recourse. It's worth remembering that phased releases were initially absent from both stores as well — they came only after sustained developer advocacy.
+We wager a bet—or call it a lightweight petition—that popular app stores will officially support native rollbacks in the form of process or technical improvements over the next five years. Just as phased releases helped mitigate widespread issues by gradually rolling out updates, rollbacks represent the next logical step. The same feedback and incentive loops are at play here, and introducing them is a strategic imperative for Apple and Google. 
 
-## Looking ahead
-
-We predict that popular app stores will officially support native rollbacks within five years. The same feedback loops that brought phased releases will drive this change. Since mobile infrastructure is centralized through Apple and Google, they bear the responsibility for upgrading the tools available to developers. The demand is there. The technology is there. It's time for the policy to catch up.
+Since mobile app infrastructure is centralized, they have almost a moral responsibility to upgrade their tools to match the reliability needs of today. By equipping developers with better systems and giving them a compelling reason to continue investing in official SDKs, they invest in the long-term health and quality of their app ecosystems.

@@ -1,40 +1,75 @@
 ---
 title: "Build Distribution"
 date: "2023-06-01"
-description: "How Tramline centralizes build distribution across your release cycle."
+description: "Tramline is on a mission to be the sole platform you need for your app releases. A major step towards it is to provide a unified and streamlined experience for mobile teams, particularly when it comes to the two dominant stores: App Store and Play Store."
 heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/6653642028aa81a1477e46c8_1388x1080.webp"
 author: "Nivedita Priyadarshini"
 category: "Feature Spotlight"
 ---
 
-## One Ring to bring them all
+## 💍 One Ring to bring them all
 
-As mobile teams expand, build-sharing methods multiply. Tramline centralizes distribution. Once CI generates binaries, Tramline distributes across designated channels including app stores. Teams define destinations without handling technical details. Platform adapts to evolving integration interfaces, reducing reliance on external tools like Fastlane.
+…and in the darkness guide them.
 
-![Build distribution](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e5e7d0079c3997ffd332e_64783336f5cd8d6fe9e99a4b_634e6980-c62f-4fc7-b296-cd98fcb1139c_1736x580.webp)
+As mobile teams grow bigger, the ways of sharing the build during a release cycle increase with it. When it was just you and your friend building apps, you could just AirDrop the binary or put it in a shared folder for them to access. Now, with your team grown to include PMs, testers, designers, and other developers, you have to send the release candidates to a bunch of people via a multitude of channels across different integrations.
 
-For future integrations (like Firebase App Distribution), users can add new distribution channels with minimal friction through the dashboard.
+Tramline provides a centralized platform where teams can efficiently manage build distribution or simply monitor its progress within the release cycle. All the necessary information and actions can be accessed directly through Tramline, eliminating the need to navigate multiple platforms for these tasks.
 
-## App Store and the Review Process
+After your CI system generates the appropriate binary file, we take that artifact and ensure its distribution across all the designated distribution channels, including the stores.
 
-Tramline manages the entire process post-TestFlight upload: beta testing with external groups, store release preparation with version/build/release notes, review submission, release with or without phased rollout post-approval.
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e5e7d0079c3997ffd332e_64783336f5cd8d6fe9e99a4b_634e6980-c62f-4fc7-b296-cd98fcb1139c_1736x580.webp)
 
-![App Store process](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e5e7db4641e59bf9fd150_6478335b0a830d219862f0ee_54f83ab1-4f72-40af-a4e8-08b1b67b0346_888x1427.webp)
+You can define the exact destinations for your build without any concerns about the technical aspects of sending it there. The interfaces across different integrations evolve quite often in the mobile world making your distribution process flaky even when you are using a very effective tool like [Fastlane](http://fastlane.tools). We relieve you from the burdensome task of handling these operations and ensure your build reaches where it is supposed to.
 
-Binary TestFlight uploads remain unsupported due to App Store Connect API limitations but are planned.
+For example, if you decide to incorporate [Firebase App Distribution](https://firebase.google.com/docs/app-distribution) into your release cycle in the future, Tramline makes the integration seamless. With just a few clicks within the dashboard, you can effortlessly add Firebase App Distribution to your existing release workflow.
 
-## Stage Roll 'em out
+You can read more about the build distribution integrations we support in our [docs](https://docs.tramline.app/integrations/distribution/).
 
-Staged rollouts are handled differently across stores. Play Store allows creating templates applied across release cycles. App Store enables pausing and resuming during 7-day phased releases.
+## 👻 App Store and the Review Process
 
-![Play Store rollout](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e5e7d39463cfd39a94866_6478338ed174aff550b2d6dd_7c5ca82a-08da-4d73-9457-180c54473af3_1304x1048.webp)
+Everyone we know has their own App Store-review scary stories that they share with each other over the bonfire at camps. We, at Tramline, want to be the Ghostbusters to remove all your App Store woes!
 
-![App Store rollout](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e5e7d0573df244d1aec75_6478339b89623184dbf418fe_bb87105a-930d-4ee0-8b26-3e528a9d3baa_1199x588.webp)
+Once your build is uploaded to TestFlight by your CI system, Tramline manages the entire process until release including:
 
-## What else?
+-   sending the build to external groups for beta testing
+-   preparing the store release with appropriate version, build, and release notes
+-   submitting the release version for review
+-   releasing the app with or without phased release once the review is approved
 
-Platform maintains a "store quirks" repository documenting store-specific differences.
+A simplified App Store release lifecycle in Tramline looks like this:
 
-## Future
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e5e7db4641e59bf9fd150_6478335b0a830d219862f0ee_54f83ab1-4f72-40af-a4e8-08b1b67b0346_888x1427.webp)
 
-Planned improvements: metric-based automatic pausing for App Store, automated Play Store staged rollouts using templates, iOS TestFlight build uploads.
+Due to current limitations with App Store Connect API, binary uploads to TestFlight are not yet supported. However, we are actively working on integrating this feature, and it will be available in the near future.
+
+## 🎢 Stage Roll ‘em out
+
+All crucial, if not all, features in mobile apps go through the cautious process of phased releases or staged rollouts.
+
+Tramline handles staged rollout in App Store and Play Store differently due to the differences in the stores.
+
+For Play Store, we allow the creation of a template for staged rollout and apply that template for every release cycle. It allows users to move the release through the different stages as and when they feel comfortable.
+
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e5e7d39463cfd39a94866_6478338ed174aff550b2d6dd_7c5ca82a-08da-4d73-9457-180c54473af3_1304x1048.webp)
+
+For App Store, it allows pausing and resuming rollout during the 7-day phased release process.
+
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/664e5e7d0573df244d1aec75_6478339b89623184dbf418fe_bb87105a-930d-4ee0-8b26-3e528a9d3baa_1199x588.webp)
+
+## ❄️ What else?
+
+While Tramline aims to unify the user experience across various app stores as much as possible, it recognizes the importance of adapting to the distinct requirements and differences of each store.
+
+For posterity and general knowledge, we maintain an ever-growing set of [store quirks](https://github.com/tramlinehq/store-quirks). It is compiled from our experience and scouring through developer forums, Stack Overflow, and various other sources of developer documentation.
+
+## ✨ Future
+
+We are actively improving the distribution mechanism for builds, and the following improvements are in progress and coming soon:
+
+-   Implementing triggers to monitor and automatically pause phased releases in the App Store based on configured metrics
+-   Automating staged rollout for the Play Store based on existing templates
+-   Enabling the upload of iOS builds to TestFlight
+
+That’s all for this month, until the next train! 🚃
+
+‍

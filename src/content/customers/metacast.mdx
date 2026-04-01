@@ -1,34 +1,32 @@
 ---
-name: Metacast
-location: United States
-teamSize: 1-5 engineers
-headline: Metacast stays focused on product by using Tramline to run releases
-description: A podcast app with innovative features like automatic transcription, audio/text bookmarks, and keyword search.
-platforms: Flutter (Android & iOS)
-industry: Entertainment
-integrations: GitHub, GitHub Actions, Buildkansen, Slack, TestFlight, Play Store, App Store
-heroImage: https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/66535862f12aaa32d4ac1567_Meta.webp
-logo: https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/665c1b99e752eed042d57085_metacast%20logo.png
+name: "Metacast"
+headline: "Metacast stays focused on product by using Tramline to run releases"
+description: "Podcast platform team stays focused on product by automating their cross-platform release process with Tramline."
+heroImage: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/66535862f12aaa32d4ac1567_Meta.webp"
+logo: "https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/665c1b99e752eed042d57085_metacast%20logo.png"
+teamSize: "1-5 engineers"
+location: "United States"
+platforms: "Flutter (Android & iOS)"
+industry: "Entertainment"
+integrations: "GitHub, GitHub Actions, Buildkansen, Slack, TestFlight, Play Store, App Store"
 ---
 
-Podcasts have exploded in popularity over the last 15 years, thanks to the growth of the smartphone industry and the global reduction in the cost of mobile data. Both the App Store and Play Store have many podcast apps but there has been little change over the years in what they offer.
+Podcasts have exploded in popularity over the last 15 years, thanks to the growth of the smartphone industry and the global reduction in the cost of mobile data. Both the App Store and Play Store have many podcast apps but there has been little change over the years in what they offer. 
 
-This is where Metacast comes in. Arnab Deka and Ilya Bezdelev met while working together at Amazon, and aspired to start a company together someday. In 2022 that future became reality when Arnab left Amazon and started brainstorming with Ilya on what they could build together. They were both dissatisfied with the state of podcast apps and kept waiting for something better to come out... which never happened.
+This is where [Metacast](https://metacast.app/) comes in. [Arnab Deka](https://www.linkedin.com/in/or9ob/) and [Ilya Bezdelev](https://www.linkedin.com/in/ilyabezdelev/) met while working together at Amazon, and aspired to start a company together someday. In 2022 that future became reality when Arnab left Amazon and started brainstorming with Ilya on what they could build together. They were both dissatisfied with the state of podcast apps and kept waiting for something better to come out… which never happened.
 
-So they tackled the problem head-on and built it themselves. Today, Metacast ships with innovative features like automatic transcription, audio/text bookmarks, keyword search, and even deep links to specific points in time in an episode!
+So they tackled the problem head-on and built it themselves. Today, Metacast ships with innovative features like automatic transcription, audio/text bookmarks, keyword search, and even deep links to specific points in time in an episode! 
 
 ## Challenges
 
-Like so many users of GitHub, Metacast started by setting up their CI pipelines in GitHub Actions. Even though the Linux pipelines worked, the macOS runner machines offered by Actions were too slow, and the more powerful runners were often unavailable. This prompted Metacast to look for alternatives, which is when Tramline stepped in to help them out.
+Like so many users of GitHub, Metacast started by setting up their CI pipelines in GitHub Actions. Even though the Linux pipelines worked, the macOS runner machines offered by Actions were too slow, and the more powerful runners were often unavailable. This prompted Metacast to look for alternatives, which is when Tramline stepped in to help them out. 
 
-> "App Store deployments are confusing and tricky, especially when coming from the backend world."
->
+> App Store deployments are confusing and tricky, especially when coming from the backend world.  
 > — Arnab Deka, CTO
 
-The team helped Metacast migrate from GitHub Actions to Bitrise, which gave them far better pipeline performance. As they continued to work towards the MVP of the app, they understood that, unlike backend software, it is difficult to map CI pipeline jobs to app releases. Their limited app development experience led them to look for a platform that would manage the entire app release lifecycle.
+We helped Metacast migrate from GitHub Actions to Bitrise, which gave them far better pipeline performance. As they continued to work towards the MVP of the app, they understood that, unlike backend software, it is difficult to map CI pipeline jobs to app releases. Their limited app development experience led them to look for a platform that would manage the entire app release lifecycle. 
 
-> "Arnab and I come from the world of big tech where sophisticated release tooling is the standard; we wanted something that got us close to that."
->
+> Arnab and I come from the world of big tech where sophisticated release tooling is the standard; we wanted something that got us close to that.   
 > — Ilya Bezdelev, CEO
 
 Even though Metacast is an early-stage startup, the founding team has decades of software engineering experience at organizations like Google and AWS. They understood the value of being able to do painless continuous releases and knew the edge it would give them as they iterated on the product.
@@ -37,36 +35,33 @@ Even though Metacast is an early-stage startup, the founding team has decades of
 
 Thanks to the deep integration with Bitrise, it was easy for Metacast to model their release process in Tramline. The app is built on Flutter which gave them the benefit of using the same framework to build the iOS and Android app. Tramline extended those benefits to releases by being able to synchronize iOS and Android releases. It allowed Metacast to ship updates to users on both platforms without doing twice the work, or learning two different app store consoles.
 
-> "Managing releases is so much overhead and Tramline takes it all away. It reduces context switching which means we focus better on the actual work."
->
-> — Arnab Deka, CTO
+> Managing releases is so much overhead and Tramline takes it all away. It reduces context switching which means we focus better on the actual work.  
+> — Arnab Deka, CTO   
 
-When Bitrise moved away from its pay-as-you-go pricing to a credits-based system, it benefited large-scale teams but not small startups like Metacast. So they moved back to GitHub Actions but this time instead of using GitHub's runners, they chose Buildkansen runners which were significantly faster and cheaper. The transition had negligible impact on their releases, as it took a minor change on Tramline to switch build generation from Bitrise to GitHub Actions.
+When Bitrise moved away from its pay-as-you-go pricing to a credits-based system, it benefited large-scale teams but not small startups like Metacast. So they moved back to GitHub Actions but this time instead of using GitHub’s runners, they chose [Buildkansen runners](https://builds.tramline.app/) which were significantly faster and cheaper. The transition had negligible impact on their releases, as it took a minor change on Tramline to switch build generation from Bitrise to GitHub Actions.
 
-This also highlights the advantage of Tramline acting as the abstraction layer for the tools used during the release process. The presence of this layer makes it easy to avoid vendor lock-in and helps the team switch to the tools that work best for them, with minimal disruption.
+This also highlights the advantage of Tramline acting as the abstraction layer for the tools used during the release process. The presence of this layer makes it easy to avoid vendor lock-in and helps the team switch to the tools that work best for them, with minimal disruption. 
 
-When Jennie Buechner joined Metacast as the first engineer, it was important for her to come up to speed quickly in the mobile app space, given the early, iterative state of the product. With Tramline all they had to do was add Jennie to the platform, and she could see all the moving parts of the release process. After shadowing Arnab through a release, she could drive releases completely on her own. This experience gave Metacast confidence that when they grew their app team, educating new hires on the release process was one thing they wouldn't have to worry about.
+When [Jennie Buechner](https://www.linkedin.com/in/jenniebuechner/) joined Metacast as the first engineer, it was important for her to come up to speed quickly in the mobile app space, given the early, iterative state of the product. With Tramline all they had to do was add Jennie to the platform, and she could see all the moving parts of the release process. After shadowing Arnab through a release, she could drive releases completely on her own. This experience gave Metacast confidence that when they grew their app team, educating new hires on the release process was one thing they wouldn’t have to worry about.
 
-> "With Tramline, you don't have to be a developer to participate in the app release process. Developers stabilize the release, and PMs write release notes and look at the larger picture. Tramline separates the roles and responsibilities cleanly."
->
+> With Tramline, you don’t have to be a developer to participate in the app release process. Developers stabilize the release, and PMs write release notes and look at the larger picture. Tramline separates the roles and responsibilities cleanly.   
 > — Ilya Bezdelev, CEO
 
-The fast pace of development at a startup demands wasting as little time as possible. Git operations (e.g. creating a release branch, copying commits between the release and working branch) are important enough that if they are forgotten or done incorrectly, it becomes difficult to debug releases in the future.
+The fast pace of development at a startup demands wasting as little time as possible. Git operations (e.g. creating a release branch, copying commits between the release and working branch) are important enough that if they are forgotten or done incorrectly, it becomes difficult to debug releases in the future. 
 
-> "If it wasn't for Tramline's git automations, we may not have the discipline to do all the chores in every single release."
->
+> If it wasn’t for Tramline’s git automations, we may not have the discipline to do all the chores in every single release.   
 > — Arnab Deka, CTO
 
-Tramline removes the need for remembering or wrangling with git in most cases by automating tasks in the background throughout the release process. The automations go quite far: e.g. when publishing a beta release to TestFlight (or Play Store), Tramline can pull the titles of the PRs merged into the release branch, and submit them as tester notes.
+Tramline removes the need for remembering or wrangling with git in most cases by automating tasks in the background throughout the release process. The automations go quite far: e.g. when publishing a beta release to TestFlight (or Play Store), Tramline can pull the titles of the PRs merged into the release branch, and submit them as tester notes. 
 
 ## Outcomes
 
-Metacast uses Tramline daily to ensure users get updates like clockwork with no manual intervention. It is an important part of their workflow.
+Metacast uses Tramline daily to ensure users get updates like clockwork with no manual intervention. It is an important part of their workflow. 
 
-![Ilya Bezdelev on LinkedIn](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/665358a0ebe73fccc206b6d1_6634da41c878fb8dbd294924_Ilya%2520Tramline.webp)
+![](https://cdn.prod.website-files.com/6644e5e860f656524d6f24a5/665358a0ebe73fccc206b6d1_6634da41c878fb8dbd294924_Ilya%2520Tramline.webp)
 
-*Source: [Ilya Bezdelev on LinkedIn](https://www.linkedin.com/posts/ilyabezdelev_it-sounds-crazy-but-we-might-do-two-app-activity-7188618814341754880-4nG0)*
+Source: [Ilya Bezdelev on LinkedIn](https://www.linkedin.com/posts/ilyabezdelev_it-sounds-crazy-but-we-might-do-two-app-activity-7188618814341754880-4nG0?utm_source=share&utm_medium=member_desktop)
 
-The DevOps industry understands that big teams use specialized platforms because the cost of human error, poor coordination, or inefficient workflows is substantial. But Metacast makes it clear that adopting a platform early on makes it much easier to move fast with confidence. Once a team grows in size, any change — especially to a critical path like the app release process — needs careful deliberation.
+The DevOps industry understands that big teams use specialized platforms because the cost of human error, poor coordination, or inefficient workflows is substantial. But Metacast makes it clear that adopting a platform early on makes it much easier to move fast with confidence. Once a team grows in size, any change — especially to a critical path like the app release process — needs careful deliberation. 
 
-Metacast announced their beta program in February 2024, and the team is working towards the public launch. True to their mission, they also interviewed the Tramline team on their official podcast which can be found on their website.
+Metacast announced [their beta program](https://metacast.app/) (give it a try!) in February 2024, and the team is working towards the public launch in the spring of 2024. True to their mission, they also interviewed the Tramline team on their official podcast which [can be found here](https://metacast.app/podcasts/episode/7d7e381e-907c-5b22-aefc-1fc8311d2a71_f0033302-5234-4277-aaa1-1a192d4ece9e).
