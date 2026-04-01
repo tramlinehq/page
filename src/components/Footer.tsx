@@ -48,11 +48,11 @@ export function Footer() {
           {/* Brand */}
           <div>
             <img
-              src="https://cdn.prod.website-files.com/6644e5e860f656524d6f243e/664b1cab1ff8110289c4ba8e_tramline-vector-logo.svg"
+              src="/tramline-icon.svg"
               alt="Tramline"
-              className="h-12 mb-4"
-              width={213}
-              height={48}
+              className="h-24 mb-4 block"
+              width={96}
+              height={96}
             />
             <p className="text-sm text-muted-foreground">
               The Mobile
@@ -131,7 +131,7 @@ export function Footer() {
           <div className="flex items-center gap-4">
             {/* LinkedIn */}
             <a
-              href="https://www.linkedin.com/company/tramline-inc"
+              href="https://www.linkedin.com/company/tramline"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"
@@ -143,7 +143,7 @@ export function Footer() {
             </a>
             {/* X/Twitter */}
             <a
-              href="https://twitter.com/AskTramline"
+              href="https://x.com/tramlinehq"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"
@@ -155,7 +155,7 @@ export function Footer() {
             </a>
             {/* Instagram */}
             <a
-              href="https://www.instagram.com/AskTramline"
+              href="https://instagram.com/tramlinehq"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"

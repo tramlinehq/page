@@ -17,9 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(GeistSans.variable)}>
+    <html lang="en" className={cn(GeistSans.variable, "overflow-x-hidden")}>
       <head />
-      <body>
+      <body className="overflow-x-hidden">
         <Navbar />
         <main>{children}</main>
         <Footer />
