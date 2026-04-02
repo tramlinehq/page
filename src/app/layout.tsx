@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Tramline - The Mobile DevOps Platform",
   description:
     "Stop wrangling with CI pipelines. Quit tracking releases on spreadsheets. Tramline transforms your app releases into well-defined workflows on autopilot.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
