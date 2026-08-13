@@ -104,17 +104,9 @@ export default function HomePage() {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button render={<a href="https://go.tramline.app/preview" />} className="rounded-[7px]">
+            <Button render={<a href="https://tramline.site/demo" />} className="rounded-[7px]">
               Preview the dashboard →
             </Button>
-            <a
-              href="https://go.tramline.app/demo"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-muted-foreground hover:text-foreground underline transition-colors"
-            >
-              Or book a demo
-            </a>
           </div>
         </div>
       </section>
