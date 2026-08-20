@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { WindDownBanner } from "@/components/WindDownBanner";
 import { GeistSans } from "geist/font/sans";
 import { cn } from "@/lib/utils";
 
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en" className={cn(GeistSans.variable, "overflow-x-hidden")}>
       <head />
       <body className="overflow-x-hidden">
+        <WindDownBanner />
         <Navbar />
         <main>{children}</main>
         <Footer />
