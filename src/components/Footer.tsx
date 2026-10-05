@@ -26,11 +26,6 @@ const TOOLS_LINKS = [
     href: "https://github.com/tramlinehq/applelink",
     external: true,
   },
-  {
-    label: "Macige",
-    href: "https://macige.tramline.app/",
-    external: true,
-  },
 ];
 
 const COMPANY_LINKS = [
