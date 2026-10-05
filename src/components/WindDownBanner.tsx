@@ -10,11 +10,11 @@ export function WindDownBanner() {
   const [dismissed, setDismissed] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setDismissed(window.localStorage.getItem(DISMISS_KEY) === "true");
+    setDismissed(window.sessionStorage.getItem(DISMISS_KEY) === "true");
   }, []);
 
   function dismiss() {
-    window.localStorage.setItem(DISMISS_KEY, "true");
+    window.sessionStorage.setItem(DISMISS_KEY, "true");
     setDismissed(true);
   }
 
