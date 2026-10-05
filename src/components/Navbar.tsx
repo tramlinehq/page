@@ -18,7 +18,6 @@ const NAV_LINKS = [
   { label: "Integrations", href: "/integrations" },
   { label: "Blog", href: "/blog" },
   { label: "Customers", href: "/customers" },
-  { label: "Pricing", href: "/pricing" },
   { label: "Docs", href: "https://docs.tramline.app", external: true },
 ];
 
@@ -79,9 +78,6 @@ export function Navbar() {
           >
             Sign in
           </a>
-          <Button render={<a href="https://tramline.dev/email/sign_up" />} size="sm" className="rounded-[7px]">
-            Sign up now
-          </Button>
         </div>
 
         {/* Mobile menu */}
@@ -151,9 +147,6 @@ export function Navbar() {
               >
                 Sign in
               </a>
-              <Button render={<a href="https://tramline.dev/email/sign_up" />} className="rounded-[7px]">
-                Sign up now
-              </Button>
             </div>
           </SheetContent>
         </Sheet>
